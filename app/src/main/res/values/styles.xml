@@ -1,10 +1,249 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomModalDialogSheet</item>
+    </style>
+    
+    <style name="Bottom.Navigation.Custom" parent="Widget.Design.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="AppBottomModalDialogSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+<!--        <item name="android:background">@drawable/bg_modal</item>-->
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">#BBBBBB</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_96sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_60sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_48sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_34sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_24sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_20sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_16sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Subtitle1.Bold" parent="TextAppearance.MdcTypographyStyles.Subtitle1">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Checkbox.Custom" parent="Widget.AppCompat.CompoundButton.CheckBox">
+<!--        <item name="android:button">@drawable/selector_checkbutton</item>-->
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_14sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_16sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_14sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Body3" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_12sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Body4" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_10sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_14sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+    </style>
+
+    <style name="TextAppearance.MdcTypographyStyles.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/nunitosans</item>
+        <item name="android:fontFamily">@font/nunitosans</item>
+        <item name="android:textSize">@dimen/_10sp</item>
+    </style>
+
+    <style name="Button.Contained" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorSecondary</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_height">@dimen/_40dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="Button.Contained.Detail" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_height">@dimen/_40dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent.Detail</item>
+    </style>
+
+    <style name="TextInputEditText.Custom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+<!--        <item name="android:background">@drawable/bg_textinput</item>-->
+<!--        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>-->
+<!--        <item name="passwordToggleDrawable">@drawable/selector_password_toggle</item>-->
+        <item name="errorTextColor">@color/colorAccent</item>
+        <item name="errorEnabled">true</item>
+        <item name="hintTextColor">@android:color/black</item>
+        <item name="boxStrokeColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Spinner.Custom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+<!--        <item name="android:background">@drawable/bg_textinput</item>-->
+<!--        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>-->
+<!--        <item name="passwordToggleDrawable">@drawable/selector_password_toggle</item>-->
+        <item name="errorTextColor">@color/colorAccent</item>
+        <item name="errorEnabled">true</item>
+        <item name="hintTextColor">@android:color/black</item>
+        <item name="boxStrokeColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
+    <style name="Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_height">@dimen/_40dp</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+        <item name="strokeColor">@android:color/black</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="Button.Outlined.Order" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_width">@dimen/_40dp</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+        <item name="strokeColor">@android:color/black</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent.Order</item>
+    </style>
+
+    <style name="Bottom.Navigation.View.Custom" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:textSize">@dimen/_22sp</item>
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+<!--        <item name="popupMenuBackground">@drawable/bg_popupmenu</item>-->
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_20dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent.Detail" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_10dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent.Order" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_7dp</item>
+    </style>
+
+    <style name="ThemeDialogCustom">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="DialogAnimation">
+<!--        <item name="android:windowEnterAnimation">@anim/slide_up</item>-->
+<!--        <item name="android:windowExitAnimation">@anim/slide_down</item>-->
     </style>
 
 </resources>

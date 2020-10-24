@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 30
@@ -17,21 +20,139 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "TAG", '"DapurEmak"'
+            buildConfigField "String", "BASE_URL", '"https://api.dapuremakemak.com/"'
+        }
         release {
+            buildConfigField "String", "TAG", '"DapurEmak"'
+            buildConfigField "String", "BASE_URL", '"https://api.dapuremakemak.com/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+realm {
+    kotlinExtensionsEnabled = true
+    syncEnabled = true
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation deps.androidx.constraint
+    implementation deps.androidx.core
+    implementation deps.androidx.appcompat
+    implementation deps.network.retrofit
+    implementation deps.network.gson
+    implementation deps.network.converter_gson
+    implementation deps.network.okhttp_log
+    implementation deps.third.glide
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation deps.androidx.rv_selection
+    kapt deps.third.glide_compiler
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+
+    // Rx & Binding
+    implementation deps.rx.core
+    implementation deps.rx.java
+    implementation deps.rx.android
+    implementation deps.rx.kotlin
+    implementation deps.network.adapter_rx
+    implementation deps.network.adapter_rx2
+    implementation deps.network.adapter_coroutine
+    implementation deps.rx.binding
+    implementation deps.rx.binding_kotlin
+    implementation deps.jetbrains.anko
+
+    //kalau butuh loading animation
+//    implementation "com.airbnb.android:lottie:3.4.0"
+//
+    //Kotlin Coroutines
+    implementation deps.jetbrains.coroutine
+    implementation deps.jetbrains.coroutine_kotlin
+
+    //Dagger
+    implementation deps.dagger.main
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_processor
+
+    //lifecycle
+    implementation deps.activity.activity_ktx
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.runtime_ktx
+    implementation deps.lifecycle.livedata_ktx
+    kapt deps.lifecycle.compiler
+
+    // ViewModel Kotlin support
+    implementation deps.lifecycle.viewmodel_ktx
+
+    //Material Design
+    implementation deps.third.material
+
+    //Circle Image View
+    implementation deps.third.circle_image
+
+    //Cardview
+    implementation deps.androidx.cardview
+
+    //Google
+    implementation deps.google.play_auth
+    implementation deps.google.firebase_auth_ktx
+    implementation deps.google.firebase
+    implementation deps.google.firebase_messaging
+    implementation deps.google.exoplayer
+    implementation deps.google.exo_dash
+    implementation deps.google.exo_ui
+    implementation deps.google.exo_core
+
+    //Otpview
+//    implementation deps.third.otpview
+
+    //Timeline View
+    implementation deps.third.timeline
+
+    //ShapeView
+    implementation deps.third.shapeview
+
+    //TextDrawable
+    implementation deps.third.text_drawable
+
+    //Navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+    //Placeholder
+    implementation deps.third.shimmer
+
+    //Fragment
+    implementation deps.fragment.fragment_runtime
+    implementation deps.fragment.fragment_runtime_ktx
+
+    //third party
+    implementation 'id.zelory:compressor:3.0.0'
+//    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v1.7.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
+//    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    implementation "com.airbnb.android:lottie:3.4.0"
 
 }
