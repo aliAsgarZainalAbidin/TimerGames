@@ -1,5 +1,6 @@
 package com.selayar.history.di.module
 
+import com.selayar.history.fragment.home.HomeFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,4 +14,6 @@ abstract class FragmentBuildersModule {
 //    @ContributesAndroidInjector
 //    abstract fun bindFragOrder(): FragOrder
 
+    @ContributesAndroidInjector
+    abstract fun bindFragHome(): HomeFragment
 }

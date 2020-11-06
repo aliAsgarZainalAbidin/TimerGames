@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    app:cardCornerRadius="@dimen/_16dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_24dp"
+    android:transitionName="fadeIn"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_layout_item_bg"
+            android:src="@drawable/item_photo"
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/_240dp"
+            android:layout_height="380dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_layout_item_title"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            style="@style/TextAppearance.MdcTypographyStyles.Body3"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_8dp"
+            android:text="Gong Nekara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_layout_item_ket"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            style="@style/TextAppearance.MdcTypographyStyles.Body4"
+            tools:text="@tools:sample/lorem[240]"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginBottom="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>
