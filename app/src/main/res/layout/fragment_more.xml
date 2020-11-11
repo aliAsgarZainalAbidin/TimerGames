@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.detail.more.MoreFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_more_nama"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle1.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_16dp"
+            android:text="Gong Nekara"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_more_lokasi"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:text="Matalalang, Kec. Bontoharu, Kab. Kep. Selayar"
+            app:layout_constraintTop_toBottomOf="@id/tv_more_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_more_ket"
+            style="@style/TextAppearance.MdcTypographyStyles.Body3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:inputType="textMultiLine"
+            android:text="lorem lkajs dakjsdsda asdasdsad asda akjsda lkasd kljasdlkjasd laksdkjasdlkjasdlkjasd asdlkjasldkj sadlkajsd lkasjd lkjkljasdlk laksjdasd laksjdaklsjd asd lkjlkjkjsdalkjalk asldkjas ask"
+            app:layout_constraintTop_toBottomOf="@id/tv_more_lokasi" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_more_title_gambar"
+            style="@style/TextAppearance.MdcTypographyStyles.Body3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:text="Gambar"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_more_ket" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_more_gambars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_more_title_gambar"
+            tools:listitem="@layout/rv_image_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

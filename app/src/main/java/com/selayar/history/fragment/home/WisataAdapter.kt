@@ -53,6 +53,8 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
                     .into(iv_layout_item_bg)
 
                 ViewCompat.setTransitionName(iv_layout_item_bg,"fadeIn$position")
+                ViewCompat.setTransitionName(tv_layout_item_title,"title$position")
+                ViewCompat.setTransitionName(tv_layout_item_ket,"ket$position")
 
                 root.setOnClickListener {
                     listener.WisataOnClickListener(wisataSejarah, position, this as CardView)

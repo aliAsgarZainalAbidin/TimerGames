@@ -71,7 +71,9 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
     ) {
         super.WisataOnClickListener(wisataSejarah, position, root)
         val extras = FragmentNavigatorExtras(
-            root.iv_layout_item_bg to "fadeIn"
+            root.iv_layout_item_bg to "fadeIn",
+            root.tv_layout_item_title to "title",
+            root.tv_layout_item_ket to "ket"
         )
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
             .navigate(R.id.action_homeFragment_to_detailFragment,null,null, extras)

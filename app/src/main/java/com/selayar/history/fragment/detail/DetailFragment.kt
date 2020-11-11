@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.selayar.history.R
+import kotlinx.android.synthetic.main.fragment_detail.*
 import java.util.concurrent.TimeUnit
 
 class DetailFragment : Fragment() {
@@ -28,6 +30,9 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        tv_detail_more.setOnClickListener {
+            findNavController().navigate(R.id.action_detailFragment_to_moreFragment)
+        }
     }
 
 }
