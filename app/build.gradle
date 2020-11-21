@@ -21,12 +21,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "TAG", '"DapurEmak"'
-            buildConfigField "String", "BASE_URL", '"https://api.dapuremakemak.com/"'
+            buildConfigField "String", "TAG", '"WisataSejarah"'
+            buildConfigField "String", "BASE_URL", '"http://deval.id/api/"'
         }
         release {
-            buildConfigField "String", "TAG", '"DapurEmak"'
-            buildConfigField "String", "BASE_URL", '"https://api.dapuremakemak.com/"'
+            buildConfigField "String", "TAG", '"WisataSejarah"'
+            buildConfigField "String", "BASE_URL", '"http://deval.id/api/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
