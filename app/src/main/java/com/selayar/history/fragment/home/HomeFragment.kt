@@ -29,6 +29,7 @@ import com.selayar.history.Models.WisataSejarah
 import com.selayar.history.Retrofit.ApiFactory
 import com.selayar.history.Util.ExampleData
 import com.selayar.history.di.Injectable
+import com.selayar.history.fragment.detail.DetailFragment
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers.io
@@ -137,11 +138,18 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
     ) {
         super.WisataOnClickListener(wisataSejarah, position, root)
         val extras = FragmentNavigatorExtras(
-            root.iv_layout_item_bg to "fadeIn",
-            root.tv_layout_item_title to "title",
-            root.tv_layout_item_ket to "ket"
+//            root.iv_layout_item_bg to "fadeIn",
+//            root.tv_layout_item_title to "title",
+//            root.tv_layout_item_ket to "ket"
         )
+
+        val bundle = Bundle()
+        bundle.putString(DetailFragment.NAMA,wisataSejarah.nama)
+        bundle.putString(DetailFragment.DESCRIPTION,wisataSejarah.deskripsi)
+        bundle.putString(DetailFragment.BG,wisataSejarah.bg)
+        bundle.putString(DetailFragment.LOCATION,wisataSejarah.location)
+
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-            .navigate(R.id.action_homeFragment_to_detailFragment, null, null, extras)
+            .navigate(R.id.action_homeFragment_to_detailFragment, bundle, null, extras)
     }
 }
