@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.selayar.history">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:name=".Util.MyApp"
         android:allowBackup="true"

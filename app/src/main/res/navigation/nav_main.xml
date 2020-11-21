@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -29,4 +32,9 @@
         android:name="com.selayar.history.fragment.detail.more.MoreFragment"
         android:label="fragment_more"
         tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.selayar.history.fragment.scan.ScannerFragment"
+        android:label="fragment_scanner"
+        tools:layout="@layout/fragment_scanner" />
 </navigation>

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.selayar.history"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -118,22 +118,22 @@ dependencies {
     implementation deps.google.firebase_auth_ktx
     implementation deps.google.firebase
     implementation deps.google.firebase_messaging
-    implementation deps.google.exoplayer
-    implementation deps.google.exo_dash
-    implementation deps.google.exo_ui
-    implementation deps.google.exo_core
+//    implementation deps.google.exoplayer
+//    implementation deps.google.exo_dash
+//    implementation deps.google.exo_ui
+//    implementation deps.google.exo_core
 
     //Otpview
 //    implementation deps.third.otpview
 
     //Timeline View
-    implementation deps.third.timeline
+//    implementation deps.third.timeline
 
     //ShapeView
     implementation deps.third.shapeview
 
     //TextDrawable
-    implementation deps.third.text_drawable
+//    implementation deps.third.text_drawable
 
     //Navigation
     implementation deps.navigation.fragment_ktx
@@ -147,12 +147,13 @@ dependencies {
     implementation deps.fragment.fragment_runtime_ktx
 
     //third party
-    implementation 'id.zelory:compressor:3.0.0'
-//    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v1.7.0'
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+//    implementation 'id.zelory:compressor:3.0.0'
+////    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v1.7.0'
+//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
-//    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
-    implementation "com.airbnb.android:lottie:3.4.0"
+////    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+//    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+//    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 
 }

@@ -19,8 +19,8 @@
             android:id="@+id/iv_layout_item_bg"
             android:src="@drawable/item_photo"
             android:scaleType="centerCrop"
-            android:layout_width="@dimen/_240dp"
-            android:layout_height="380dp"/>
+            android:layout_width="@dimen/_220dp"
+            android:layout_height="@dimen/_260dp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_layout_item_title"
