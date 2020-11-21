@@ -47,9 +47,9 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
                 }
                 root.layoutParams = layoutParams
                 tv_layout_item_title.text = wisataSejarah.nama
-                tv_layout_item_ket.text = wisataSejarah.ket
+                tv_layout_item_ket.text = wisataSejarah.deskripsi
                 Glide.with(itemView.context)
-                    .load(wisataSejarah.background)
+                    .load(wisataSejarah.bg)
                     .into(iv_layout_item_bg)
 
                 ViewCompat.setTransitionName(iv_layout_item_bg,"fadeIn$position")

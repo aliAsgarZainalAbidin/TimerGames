@@ -10,7 +10,10 @@ open class Gambar(
     open var idGambar: Int = -1,
 
     @field:SerializedName("gambar")
-    open var urlGambar: Int? = 0
+    open var urlGambar: Int? = 0,
+
+    @field:SerializedName("img")
+    open var img: String? = ""
 ) : RealmObject(){
 
 }

@@ -22,10 +22,16 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.selayar.history.BuildConfig.TAG
+import com.selayar.history.Model.ModelListWrapper
+import com.selayar.history.Model.ModelWrapper
 import com.selayar.history.R
 import com.selayar.history.Models.WisataSejarah
+import com.selayar.history.Retrofit.ApiFactory
 import com.selayar.history.Util.ExampleData
 import com.selayar.history.di.Injectable
+import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers.io
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.rv_layout_item.*
@@ -41,6 +47,10 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
     @Inject
     lateinit var realm: Realm
 
+    private val restForeground by lazy {ApiFactory.create(false)}
+    private var disposable: Disposable? = null
+    private lateinit var adapter : WisataAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +62,7 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        getAllWisata()
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -68,9 +78,9 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
         val snapHelper = GravitySnapHelper(Gravity.CENTER)
         snapHelper.attachToRecyclerView(rv_home_item)
 
-        listWisata = ExampleData().getExampleData()
+        //listWisata = ExampleData().getExampleData()
         var layoutManager = activity?.let { CenterZoomLinearLayoutManager(it) }
-        val adapter = WisataAdapter(listWisata, this)
+        adapter = WisataAdapter(listWisata, this)
         adapter.notifyDataSetChanged()
         rv_home_item.layoutManager = layoutManager
         rv_home_item.adapter = adapter
@@ -90,6 +100,34 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
             (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                 .navigate(R.id.action_homeFragment_to_scannerFragment)
         }
+    }
+
+    fun getAllWisata(){
+        disposable = restForeground
+            .getAllWisata()
+            .subscribeOn(io())
+            .observeOn(mainThread())
+            .subscribe({
+                onSuccessWisata(it)
+            },{
+
+            })
+    }
+
+    fun onSuccessWisata(data: ModelListWrapper<WisataSejarah>){
+        data.data?.let {
+            listWisata.clear()
+
+            if (it.size > 0){
+                listWisata.addAll(it)
+            }
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable?.dispose()
     }
 
     override fun WisataOnClickListener(

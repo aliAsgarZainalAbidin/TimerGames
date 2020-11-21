@@ -1,6 +1,8 @@
 package com.selayar.history.Retrofit
 
 import com.selayar.history.Model.*
+import com.selayar.history.Models.Gambar
+import com.selayar.history.Models.WisataSejarah
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -81,4 +83,11 @@ interface ApiInterface {
     //Kode untuk aplikasi mulai dari sini
 
 
+    @GET("travel/")
+    fun getAllWisata():Observable<ModelListWrapper<WisataSejarah>>
+
+    @GET("travel/{slug}")
+    fun getQR(
+        @Path("slug") slug: String
+    ):Observable<ModelListWrapper<WisataSejarah>>
 }
