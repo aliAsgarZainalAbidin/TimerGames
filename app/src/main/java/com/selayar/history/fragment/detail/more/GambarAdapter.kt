@@ -23,8 +23,7 @@ class GambarAdapter(private val listGambar : ArrayList<Gambar>?) : RecyclerView.
 
                 Glide.with(itemView.context)
                     .load(gambar?.img)
-                    .thumbnail(0.25f)
-                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo))
+                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo).thumbnail(0.25f))
                     .apply(requestOption)
                     .into(iv_image_item)
             }

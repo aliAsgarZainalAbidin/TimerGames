@@ -77,8 +77,7 @@ class DetailFragment : Fragment() {
 
         Glide.with(this)
             .load(bg)
-            .thumbnail(0.25f)
-            .thumbnail(Glide.with(this).load(R.mipmap.round_logo))
+            .thumbnail(Glide.with(this).load(R.mipmap.round_logo).thumbnail(0.25f))
             .apply(requestOption)
             .into(iv_detail_bg)
 
