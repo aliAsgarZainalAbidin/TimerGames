@@ -5,31 +5,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.selayar.history.BuildConfig.TAG
 import com.selayar.history.Model.ModelListWrapper
-import com.selayar.history.Model.ModelWrapper
-import com.selayar.history.R
 import com.selayar.history.Models.WisataSejarah
+import com.selayar.history.R
 import com.selayar.history.Retrofit.ApiFactory
-import com.selayar.history.Util.ExampleData
 import com.selayar.history.di.Injectable
 import com.selayar.history.fragment.detail.DetailFragment
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
@@ -37,10 +27,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers.io
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.rv_layout_item.*
-import kotlinx.android.synthetic.main.rv_layout_item.view.*
-import kotlinx.android.synthetic.main.rv_layout_item.view.iv_layout_item_bg
-import java.util.jar.Manifest
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
@@ -152,7 +138,7 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
             } else {
                 val position = listWisata.size
                 listWisata.addAll(it)
-                adapter?.notifyItemInserted(position)
+                adapter.notifyItemInserted(position)
             }
 
             Log.d(TAG, "onSuccessWisata: SIZE ${it.size}")

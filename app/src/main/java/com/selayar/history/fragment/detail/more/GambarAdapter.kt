@@ -8,9 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.selayar.history.Models.Gambar
-import com.selayar.history.Models.WisataSejarah
 import com.selayar.history.R
-import kotlinx.android.synthetic.main.fragment_more.view.*
 import kotlinx.android.synthetic.main.rv_image_item.view.*
 
 class GambarAdapter(private val listGambar : ArrayList<Gambar>?) : RecyclerView.Adapter<GambarAdapter.GambarViewHolder>() {

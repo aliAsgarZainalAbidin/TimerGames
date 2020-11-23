@@ -14,6 +14,4 @@ abstract class FragmentBuildersModule {
 //    @ContributesAndroidInjector
 //    abstract fun bindFragOrder(): FragOrder
 
-    @ContributesAndroidInjector
-    abstract fun bindFragHome(): HomeFragment
 }

@@ -1,26 +1,20 @@
 package com.selayar.history.fragment.detail
 
-import android.annotation.SuppressLint
-import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.transition.ChangeBounds
 import android.transition.TransitionInflater
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.selayar.history.BuildConfig.TAG
-import com.selayar.history.Featured.GlideApp
 import com.selayar.history.Model.ModelListWrapper
-import com.selayar.history.Model.ModelWrapper
 import com.selayar.history.Models.WisataSejarah
 import com.selayar.history.R
 import com.selayar.history.Retrofit.ApiFactory
@@ -29,8 +23,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.rv_layout_item.view.*
-import java.util.concurrent.TimeUnit
 
 class DetailFragment : Fragment() {
 
@@ -81,7 +73,7 @@ class DetailFragment : Fragment() {
             .apply(requestOption)
             .into(iv_detail_bg)
 
-        tv_detail_title.setText(nama)
+        tv_detail_title.text = nama
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             tv_detail_ket.text = Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT)

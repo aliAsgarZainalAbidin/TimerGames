@@ -6,14 +6,6 @@ import io.realm.RealmObject
 
 @Keep
 open class Gambar(
-    @field:SerializedName("id_gambar")
-    open var idGambar: Int = -1,
-
-    @field:SerializedName("gambar")
-    open var urlGambar: Int? = 0,
-
     @field:SerializedName("img")
     open var img: String? = ""
-) : RealmObject(){
-
-}
+) : RealmObject()

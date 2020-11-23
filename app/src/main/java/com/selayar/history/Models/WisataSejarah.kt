@@ -4,14 +4,9 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmList
 import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
 
 @Keep
 open class WisataSejarah(
-    @field:SerializedName("id_wisata")
-    @PrimaryKey
-    open var id_wisata: Int? = 0,
-
     @field:SerializedName("background")
     open var background: Int? = 0,
 
@@ -30,14 +25,8 @@ open class WisataSejarah(
     @field:SerializedName("slug")
     open var slug: String? = "",
 
-    @field:SerializedName("author")
-    open var author: String? = "",
-
     @field:SerializedName("travel_images")
     open var gambars: RealmList<Gambar>? = RealmList(),
-
-    @field:SerializedName("created_at")
-    open var time: String? = "",
 
     @field:SerializedName("keterangan")
     open var ket: String? = ""

@@ -1,28 +1,20 @@
 package com.selayar.history.fragment.home
 
-import android.graphics.text.LineBreaker
 import android.os.Build
 import android.text.Html
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.signature.ObjectKey
-import com.selayar.history.BuildConfig.TAG
-import com.selayar.history.R
 import com.selayar.history.Models.WisataSejarah
-import kotlinx.android.synthetic.main.fragment_detail.*
+import com.selayar.history.R
 import kotlinx.android.synthetic.main.rv_layout_item.view.*
 
 class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val listener: WisataOnClickListener) :

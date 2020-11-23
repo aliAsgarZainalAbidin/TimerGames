@@ -1,33 +1,27 @@
 package com.selayar.history.fragment.detail.more
 
-import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.selayar.history.BuildConfig.TAG
-import com.selayar.history.Model.ExampeModel
 import com.selayar.history.Model.ModelListWrapper
 import com.selayar.history.Models.Gambar
 import com.selayar.history.Models.WisataSejarah
 import com.selayar.history.R
 import com.selayar.history.Retrofit.ApiFactory
-import com.selayar.history.Util.ExampleData
 import com.selayar.history.fragment.detail.DetailFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_more.*
-import kotlinx.android.synthetic.main.rv_layout_item.view.*
 
 class MoreFragment : Fragment() {
 

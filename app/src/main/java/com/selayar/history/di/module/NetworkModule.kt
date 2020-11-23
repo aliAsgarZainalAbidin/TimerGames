@@ -5,7 +5,6 @@ import com.selayar.history.BuildConfig
 import com.selayar.history.Retrofit.ApiInterface
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.IntoSet
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,7 +35,7 @@ object NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-        var httpClient : okhttp3.OkHttpClient.Builder = okhttp3.OkHttpClient.Builder()
+        var httpClient : OkHttpClient.Builder = OkHttpClient.Builder()
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             val spec = ConnectionSpec.Builder(ConnectionSpec.COMPATIBLE_TLS)

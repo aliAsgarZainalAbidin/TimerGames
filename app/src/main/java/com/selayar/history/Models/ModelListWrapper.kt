@@ -6,9 +6,6 @@ import kotlin.collections.ArrayList
 
 @Keep
 open class ModelListWrapper<T>{
-    //data menu
-    @field:SerializedName("status")
-    open var status: String? = ""
     @field:SerializedName("data")
     open var data: MutableList<T>? = ArrayList()
 }

@@ -1,7 +1,7 @@
 package com.selayar.history.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.selayar.history.R
 import dagger.android.AndroidInjection
@@ -9,7 +9,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.realm.Realm
-import java.util.jar.Manifest
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasAndroidInjector {

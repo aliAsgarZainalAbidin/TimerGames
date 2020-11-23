@@ -9,7 +9,7 @@ class CenterZoomLinearLayoutManager(
     context: Context,
     private val mShrinkDistance: Float = 0.9f,
     val mShrinkAmount: Float = 0.15f
-) : LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) {
+) : LinearLayoutManager(context, HORIZONTAL, false) {
 
     override fun onLayoutCompleted(state: RecyclerView.State?) {
         super.onLayoutCompleted(state)

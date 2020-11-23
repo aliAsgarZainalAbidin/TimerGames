@@ -11,7 +11,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MyApp : Application(),HasAndroidInjector {

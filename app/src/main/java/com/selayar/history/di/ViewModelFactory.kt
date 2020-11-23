@@ -2,8 +2,6 @@ package com.selayar.history.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.Reusable
-
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton

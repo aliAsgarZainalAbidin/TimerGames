@@ -14,8 +14,4 @@ abstract class ActivityBuildersModule {
 //    @ContributesAndroidInjector()
 //    abstract fun bindMain2(): MainActivity
 
-    //contoh dengan fragment
-    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
-    abstract fun bindMain(): MainActivity
-
 }
