@@ -83,11 +83,19 @@ interface ApiInterface {
     //Kode untuk aplikasi mulai dari sini
 
 
+
     @GET("travel/")
-    fun getAllWisata():Observable<ModelListWrapper<WisataSejarah>>
+    fun getAllWisata(
+        @Query("page") page:Int
+    ):Observable<ModelListWrapper<WisataSejarah>>
 
     @GET("travel/{slug}")
     fun getQR(
         @Path("slug") slug: String
+    ):Observable<ModelListWrapper<WisataSejarah>>
+
+    @GET("travel/")
+    fun getWisata(
+        @Query("search") search:String
     ):Observable<ModelListWrapper<WisataSejarah>>
 }

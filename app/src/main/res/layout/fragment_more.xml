@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".fragment.detail.more.MoreFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -53,6 +54,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_more_gambars"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/_32dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8dp"
             android:orientation="horizontal"
@@ -60,6 +62,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_more_title_gambar"
             tools:listitem="@layout/rv_image_item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,5 +1,8 @@
 package com.selayar.history.fragment.home
 
+import android.graphics.text.LineBreaker
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.selayar.history.BuildConfig.TAG
 import com.selayar.history.R
 import com.selayar.history.Models.WisataSejarah
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.rv_layout_item.view.*
 
 class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val listener: WisataOnClickListener) :
@@ -47,7 +51,12 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
                 }
                 root.layoutParams = layoutParams
                 tv_layout_item_title.text = wisataSejarah.nama
-                tv_layout_item_ket.text = wisataSejarah.deskripsi
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    tv_layout_item_ket.text = Html.fromHtml(wisataSejarah.deskripsi,Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    tv_layout_item_ket.text = Html.fromHtml(wisataSejarah.deskripsi)
+                }
+
                 Glide.with(itemView.context)
                     .load(wisataSejarah.bg)
                     .into(iv_layout_item_bg)

@@ -2,6 +2,7 @@ package com.selayar.history.fragment.home
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.selayar.history.BuildConfig.TAG
 import com.selayar.history.Model.ModelListWrapper
@@ -50,7 +52,9 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
 
     private val restForeground by lazy {ApiFactory.create(false)}
     private var disposable: Disposable? = null
+    private var page = 1
     private lateinit var adapter : WisataAdapter
+    var finished = "false"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,6 +85,7 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
 
         //listWisata = ExampleData().getExampleData()
         var layoutManager = activity?.let { CenterZoomLinearLayoutManager(it) }
+//        var layoutManager = activity?.let { LinearLayoutManager(it,LinearLayoutManager.VERTICAL,false) }
         adapter = WisataAdapter(listWisata, this)
         adapter.notifyDataSetChanged()
         rv_home_item.layoutManager = layoutManager
@@ -101,29 +106,61 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
             (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                 .navigate(R.id.action_homeFragment_to_scannerFragment)
         }
+
+        rootNested?.viewTreeObserver?.addOnScrollChangedListener {
+            var view : View? = rootNested?.getChildAt(rootNested?.childCount!! - 1)
+            var diff = view?.right?.minus((rootNested?.width!! + rootNested?.scrollX!!))
+
+            if (diff == 0 && finished == "false") {
+                if (layoutManager?.findLastVisibleItemPosition() == layoutManager?.itemCount?.minus(
+                        1
+                    )) {
+                    finished = "waiting"
+                    Handler().postDelayed({
+                        page += 1
+                        getAllWisata()
+                    }, 500)
+                }
+            }
+        }
     }
 
     fun getAllWisata(){
         disposable = restForeground
-            .getAllWisata()
+            .getAllWisata(page)
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe({
                 onSuccessWisata(it)
             },{
-
+                Log.d(TAG, "getAllWisata: $it")
             })
+        Log.d(TAG, "getAllWisata: REQUEST $page")
     }
 
     fun onSuccessWisata(data: ModelListWrapper<WisataSejarah>){
         data.data?.let {
-            listWisata.clear()
-
-            if (it.size > 0){
+            if (page == 1){
+                listWisata.clear()
                 listWisata.addAll(it)
+                adapter.notifyDataSetChanged()
+            } else {
+                val position = listWisata.size
+                listWisata.addAll(it)
+                adapter?.notifyItemInserted(position)
+            }
+
+            Log.d(TAG, "onSuccessWisata: SIZE ${it.size}")
+            if (it.size > 0){
+                finished = "false"
+            } else {
+                finished = "true"
+                Log.d(TAG, "onSuccessWisata: $finished")
             }
             adapter.notifyDataSetChanged()
         }
+
+        Log.d(TAG, "onSuccessWisata: ${data.data}")
     }
 
     override fun onDestroy() {
@@ -148,6 +185,7 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
         bundle.putString(DetailFragment.DESCRIPTION,wisataSejarah.deskripsi)
         bundle.putString(DetailFragment.BG,wisataSejarah.bg)
         bundle.putString(DetailFragment.LOCATION,wisataSejarah.location)
+        bundle.putString(DetailFragment.SLUG,wisataSejarah.slug)
 
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
             .navigate(R.id.action_homeFragment_to_detailFragment, bundle, null, extras)

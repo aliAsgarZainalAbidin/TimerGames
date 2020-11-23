@@ -11,13 +11,13 @@ import com.selayar.history.R
 import kotlinx.android.synthetic.main.fragment_more.view.*
 import kotlinx.android.synthetic.main.rv_image_item.view.*
 
-class GambarAdapter(private val listGambar : List<WisataSejarah>) : RecyclerView.Adapter<GambarAdapter.GambarViewHolder>() {
+class GambarAdapter(private val listGambar : ArrayList<Gambar>?) : RecyclerView.Adapter<GambarAdapter.GambarViewHolder>() {
 
     class GambarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(gambar: WisataSejarah, position: Int){
+        fun bind(gambar: Gambar?, position: Int){
             with(itemView){
                 Glide.with(itemView.context)
-                    .load(gambar.background)
+                    .load(gambar?.img)
                     .into(iv_image_item)
             }
         }
@@ -29,10 +29,10 @@ class GambarAdapter(private val listGambar : List<WisataSejarah>) : RecyclerView
     }
 
     override fun getItemCount(): Int {
-        return listGambar.size
+        return listGambar?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: GambarViewHolder, position: Int) {
-        holder.bind(listGambar.get(position), position)
+        holder.bind(listGambar?.get(position), position)
     }
 }

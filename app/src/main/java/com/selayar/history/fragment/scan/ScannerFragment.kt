@@ -101,6 +101,7 @@ class ScannerFragment : Fragment() {
                 bundle.putString(DetailFragment.DESCRIPTION,data.deskripsi)
                 bundle.putString(DetailFragment.BG,data.bg)
                 bundle.putString(DetailFragment.LOCATION,data.location)
+                bundle.putString(DetailFragment.SLUG,data.slug)
 
                 Toast.makeText(context, data.nama, Toast.LENGTH_SHORT).show()
             }
