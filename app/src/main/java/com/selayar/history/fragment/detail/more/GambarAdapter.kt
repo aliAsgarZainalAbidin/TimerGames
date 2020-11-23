@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.selayar.history.Models.Gambar
 import com.selayar.history.Models.WisataSejarah
 import com.selayar.history.R
@@ -16,8 +18,14 @@ class GambarAdapter(private val listGambar : ArrayList<Gambar>?) : RecyclerView.
     class GambarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(gambar: Gambar?, position: Int){
             with(itemView){
+                var requestOption = RequestOptions
+                    .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+
                 Glide.with(itemView.context)
                     .load(gambar?.img)
+                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo))
+                    .thumbnail(0.25f)
+                    .apply(requestOption)
                     .into(iv_image_item)
             }
         }

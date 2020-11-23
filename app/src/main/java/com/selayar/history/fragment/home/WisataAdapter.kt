@@ -15,6 +15,9 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.signature.ObjectKey
 import com.selayar.history.BuildConfig.TAG
 import com.selayar.history.R
 import com.selayar.history.Models.WisataSejarah
@@ -57,8 +60,14 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
                     tv_layout_item_ket.text = Html.fromHtml(wisataSejarah.deskripsi)
                 }
 
+                var requestOption = RequestOptions
+                    .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+
                 Glide.with(itemView.context)
                     .load(wisataSejarah.bg)
+                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo))
+                    .thumbnail(0.25f)
+                    .apply(requestOption)
                     .into(iv_layout_item_bg)
 
                 ViewCompat.setTransitionName(iv_layout_item_bg,"fadeIn$position")

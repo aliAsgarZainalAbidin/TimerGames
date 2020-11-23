@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.selayar.history.BuildConfig.TAG
 import com.selayar.history.Featured.GlideApp
 import com.selayar.history.Model.ModelListWrapper
@@ -70,8 +72,14 @@ class DetailFragment : Fragment() {
         location = arguments?.getString(LOCATION).toString()
         bg = arguments?.getString(BG).toString()
 
+        var requestOption = RequestOptions
+            .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+
         Glide.with(this)
             .load(bg)
+            .thumbnail(Glide.with(this).load(R.mipmap.round_logo))
+            .thumbnail(0.25f)
+            .apply(requestOption)
             .into(iv_detail_bg)
 
         tv_detail_title.setText(nama)
