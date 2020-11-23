@@ -2,8 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rootNested"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".fragment.home.HomeFragment">
@@ -30,6 +30,16 @@
             android:layout_marginHorizontal="@dimen/_24dp"
             android:text="Wisata Sejarah Kab. Kep Selayar"
             app:layout_constraintTop_toBottomOf="@id/tv_home_title" />
+
+        <ImageView
+            android:id="@+id/iv_home_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_caption"
+            app:layout_constraintEnd_toEndOf="@id/tv_home_title"
+            app:layout_constraintTop_toTopOf="@id/tv_home_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_item"

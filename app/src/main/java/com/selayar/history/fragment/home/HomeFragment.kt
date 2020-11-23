@@ -107,6 +107,11 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
                 .navigate(R.id.action_homeFragment_to_scannerFragment)
         }
 
+        iv_home_search.setOnClickListener {
+            (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                .navigate(R.id.action_homeFragment_to_searchFragment)
+        }
+
         rootNested?.viewTreeObserver?.addOnScrollChangedListener {
             var view : View? = rootNested?.getChildAt(rootNested?.childCount!! - 1)
             var diff = view?.right?.minus((rootNested?.width!! + rootNested?.scrollX!!))

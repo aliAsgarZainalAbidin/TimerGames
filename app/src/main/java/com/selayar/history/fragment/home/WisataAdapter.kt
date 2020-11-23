@@ -4,6 +4,7 @@ import android.graphics.text.LineBreaker
 import android.os.Build
 import android.text.Html
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,28 +31,40 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
         fun bind(wisataSejarah: WisataSejarah, position: Int, size : Int, listener: WisataOnClickListener) {
             with(itemView) {
                 val layoutParams = FrameLayout.LayoutParams(root.layoutParams)
-                if (position == size-1) {
-                    layoutParams.setMargins(
-                        0,
-                        context.resources.getDimension(R.dimen._10dp).toInt(),
-                        context.resources.getDimension(R.dimen._24dp).toInt(),
-                        context.resources.getDimension(R.dimen._10dp).toInt()
-                    )
-                } else if (position == 0) {
-                    layoutParams.setMargins(
-                        context.resources.getDimension(R.dimen._24dp).toInt(),
-                        context.resources.getDimension(R.dimen._10dp).toInt(),
-                        0,
-                        context.resources.getDimension(R.dimen._10dp).toInt()
-                    )
+
+                if (size>1){
+                    if (position == size-1) {
+                        layoutParams.setMargins(
+                            0,
+                            context.resources.getDimension(R.dimen._10dp).toInt(),
+                            context.resources.getDimension(R.dimen._24dp).toInt(),
+                            context.resources.getDimension(R.dimen._10dp).toInt()
+                        )
+                    } else if (position == 0) {
+                        layoutParams.setMargins(
+                            context.resources.getDimension(R.dimen._24dp).toInt(),
+                            context.resources.getDimension(R.dimen._10dp).toInt(),
+                            0,
+                            context.resources.getDimension(R.dimen._10dp).toInt()
+                        )
+                    } else {
+                        layoutParams.setMargins(
+                            0,
+                            context.resources.getDimension(R.dimen._10dp).toInt(),
+                            0,
+                            context.resources.getDimension(R.dimen._10dp).toInt()
+                        )
+                    }
                 } else {
                     layoutParams.setMargins(
-                        0,
+                        context.resources.getDimension(R.dimen._24dp).toInt(),
                         context.resources.getDimension(R.dimen._10dp).toInt(),
                         0,
                         context.resources.getDimension(R.dimen._10dp).toInt()
                     )
+                    layoutParams.gravity = Gravity.CENTER
                 }
+
                 root.layoutParams = layoutParams
                 tv_layout_item_title.text = wisataSejarah.nama
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -65,8 +78,7 @@ class WisataAdapter(private val list: ArrayList<WisataSejarah>, private val list
 
                 Glide.with(itemView.context)
                     .load(wisataSejarah.bg)
-                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo))
-                    .thumbnail(0.25f)
+                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo).thumbnail(0.25f))
                     .apply(requestOption)
                     .into(iv_layout_item_bg)
 

@@ -166,7 +166,7 @@
     </style>
 
     <style name="TextInputEditText.Custom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-<!--        <item name="android:background">@drawable/bg_textinput</item>-->
+        <item name="android:background">@drawable/bg_textinput</item>
 <!--        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>-->
 <!--        <item name="passwordToggleDrawable">@drawable/selector_password_toggle</item>-->
         <item name="errorTextColor">@color/colorAccent</item>
