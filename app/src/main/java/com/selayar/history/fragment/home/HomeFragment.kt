@@ -33,9 +33,6 @@ class HomeFragment : Fragment(), Injectable, WisataOnClickListener {
 
     var listWisata = ArrayList<WisataSejarah>()
 
-    @Inject
-    lateinit var realm: Realm
-
     private val restForeground by lazy {ApiFactory.create(false)}
     private var disposable: Disposable? = null
     private var page = 1

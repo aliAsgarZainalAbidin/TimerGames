@@ -11,7 +11,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuildersModule {
 
     //contoh tanpa fragment
-//    @ContributesAndroidInjector()
-//    abstract fun bindMain2(): MainActivity
+    @ContributesAndroidInjector()
+    abstract fun bindMain2(): MainActivity
 
 }
