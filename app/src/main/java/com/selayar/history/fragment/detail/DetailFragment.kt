@@ -64,15 +64,6 @@ class DetailFragment : Fragment() {
         location = arguments?.getString(LOCATION).toString()
         bg = arguments?.getString(BG).toString()
 
-        var requestOption = RequestOptions
-            .diskCacheStrategyOf(DiskCacheStrategy.ALL)
-
-        Glide.with(this)
-            .load(bg)
-            .thumbnail(Glide.with(this).load(R.mipmap.round_logo).thumbnail(0.25f))
-            .apply(requestOption)
-            .into(iv_detail_bg)
-
         tv_detail_title.text = nama
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -84,6 +75,14 @@ class DetailFragment : Fragment() {
         tv_detail_more.setOnClickListener {
             getWisata(slug)
         }
+
+        val requestOptions = RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)
+
+        Glide.with(this)
+            .load(bg)
+            .thumbnail(Glide.with(this).load(R.mipmap.round_logo).thumbnail(0.25f))
+            .apply(requestOptions)
+            .into(iv_detail_bg)
     }
 
     override fun onDestroy() {
