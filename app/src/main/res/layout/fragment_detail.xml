@@ -1,81 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/fragment_detail_scene">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/iv_detail_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/wisata"
-        android:transitionName="fadeIn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_detail_scroll"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.github.florent37.shapeofview.shapes.RoundRectView
-            app:shape_roundRect_topRightRadius="@dimen/_16dp"
-            app:shape_roundRect_topLeftRadius="@dimen/_16dp"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_detail_time"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            tools:text="00:01:32" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_detail_start"
+            style="@style/Button.Contained"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/_46dp"
+            android:layout_below="@id/tv_detail_time"
+            android:layout_marginHorizontal="@dimen/_36dp"
+            android:layout_marginTop="@dimen/_24dp"
+            android:text="Start"
+            android:textSize="@dimen/_14sp" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_detail_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryTrans"
-                android:orientation="vertical"
-                android:padding="@dimen/_16dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_detail_stop"
+            style="@style/Button.Contained"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_below="@id/btn_detail_start"
+            android:layout_marginHorizontal="@dimen/_36dp"
+            android:text="Stop"
+            android:textSize="@dimen/_14sp" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_detail_title"
-                    style="@style/TextAppearance.MdcTypographyStyles.Subtitle1.Bold"
-                    android:layout_width="match_parent"
-                    android:transitionName="title"
-                    android:layout_height="wrap_content"
-                    tools:text="Gong Nekara" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_detail_reset"
+            style="@style/Button.Contained"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_below="@id/btn_detail_stop"
+            android:layout_marginHorizontal="@dimen/_36dp"
+            android:text="Reset"
+            android:textSize="@dimen/_14sp" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_detail_ket"
-                    style="@style/TextAppearance.MdcTypographyStyles.Body3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:inputType="textMultiLine"
-                    android:transitionName="ket"
-                    android:maxLines="3"
-                    android:minLines="3"
-                    tools:text="lorem lkajs dakjsdsda asdasdsad asda akjsda lkasd kljasdlkjasd laksdkjasdlkjasdlkjasd asdlkjasldkj sadlkajsd lkasjd lkjkljasdlk laksjdasd laksjdaklsjd asd lkjlkjkjsdalkjalk asldkjas ask" />
+    </RelativeLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_detail_more"
-                    style="@style/TextAppearance.MdcTypographyStyles.Body4"
-                    android:layout_width="match_parent"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/_8dp"
-                    android:gravity="end"
-                    android:text="Tampilkan Lebih Banyak"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:inputType="textMultiLine"
-                    android:maxLines="1"
-                    android:minLines="1"/>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </com.github.florent37.shapeofview.shapes.RoundRectView>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.core.widget.NestedScrollView>

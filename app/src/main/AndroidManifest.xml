@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.selayar.history">
+    package="com.deval.event">
 
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
-        android:name=".Util.MyApp"
+        android:name="com.deval.event.Util.MyApp"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/round_rec_logo"
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.deval.event.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

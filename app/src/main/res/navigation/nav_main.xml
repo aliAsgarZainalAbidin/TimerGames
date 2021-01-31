@@ -7,31 +7,19 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.selayar.history.fragment.home.HomeFragment"
+        android:name="com.deval.event.fragment.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_scannerFragment"
             app:destination="@id/scannerFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.selayar.history.fragment.detail.DetailFragment"
+        android:name="com.deval.event.fragment.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
 
@@ -44,12 +32,12 @@
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.selayar.history.fragment.detail.more.MoreFragment"
+        android:name="com.deval.event.fragment.detail.more.MoreFragment"
         android:label="fragment_more"
         tools:layout="@layout/fragment_more" />
     <fragment
         android:id="@+id/scannerFragment"
-        android:name="com.selayar.history.fragment.scan.ScannerFragment"
+        android:name="com.deval.event.fragment.scan.ScannerFragment"
         android:label="fragment_scanner"
         tools:layout="@layout/fragment_scanner" >
         <action
@@ -58,17 +46,13 @@
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_scannerFragment_to_regisFragment"
+            app:destination="@id/regisFragment" />
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.selayar.history.fragment.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-    </fragment>
+        android:id="@+id/regisFragment"
+        android:name="com.deval.event.fragment.regis.RegisFragment"
+        android:label="fragment_regis"
+        tools:layout="@layout/fragment_regis" />
 </navigation>
