@@ -2,10 +2,11 @@ package com.deval.event.Models
 
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmObject
+import io.realm.annotations.Required
 import io.realm.internal.Keep
 
 @Keep
-open class Peserta(
+open class PesertaFinish(
     @field:SerializedName("id")
     open var id: String? = "",
 
@@ -14,9 +15,6 @@ open class Peserta(
 
     @field:SerializedName("hp")
     open var hp: String? = "",
-
-    @field:SerializedName("position")
-    open var jabatan: String? = "",
 
     @field:SerializedName("position_id")
     open var idJabatan: String? = "",

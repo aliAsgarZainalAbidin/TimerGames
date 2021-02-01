@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.deval.event.BuildConfig
+import com.deval.event.BuildConfig.TAG
 import com.deval.event.Featured.GlideApp
 import com.deval.event.Models.Games
 import com.deval.event.Models.Peserta
@@ -36,6 +37,7 @@ import java.io.IOException
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class MoreFragment : BaseFragment() {
@@ -84,9 +86,30 @@ class MoreFragment : BaseFragment() {
         iv_more_pict.setOnClickListener {
             dispatchTakePictureIntent()
         }
+
         btn_more_upload.setOnClickListener {
             showLoading()
+            uploadScore()
         }
+    }
+
+    fun uploadScore() {
+        val t = HashMap<String, Int>()
+        t["stage$id"] = et_more_score.text.toString().toInt()
+
+        Log.d(TAG, "uploadScore: ID_NAMA $idNama => $t")
+
+        disposable = restForeground
+            .postScore(idNama.toInt(), t)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                dialogAnimation?.dismiss()
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(BuildConfig.TAG, "getGameShow: ${it.message}")
+            })
     }
 
     fun getGameShow(slug: String) {
@@ -105,6 +128,7 @@ class MoreFragment : BaseFragment() {
     fun onSuccessGame(data: Games) {
         data.let {
             id = data.id.toString()
+            Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show()
         }
     }
 

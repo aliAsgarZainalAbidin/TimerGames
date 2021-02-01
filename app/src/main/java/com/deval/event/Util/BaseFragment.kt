@@ -26,8 +26,8 @@ open class BaseFragment : Fragment() {
         activity ?.let { dialogAnimation =  Dialog(it, R.style.ThemeDialogCustom) }
         dialogAnimation?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialogAnimation?.setContentView(R.layout.fragment_success_dialog)
-        dialogAnimation?.setCancelable(true)
-        dialogAnimation?.setCanceledOnTouchOutside(true)
+        dialogAnimation?.setCancelable(false)
+        dialogAnimation?.setCanceledOnTouchOutside(false)
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(dialogAnimation?.window?.attributes)

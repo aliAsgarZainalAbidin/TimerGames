@@ -5,6 +5,8 @@ import com.deval.event.Model.ModelListWrapper
 import com.deval.event.Models.*
 import com.deval.event.Models.Unit
 import io.reactivex.Observable
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -62,6 +64,13 @@ interface ApiInterface {
         @Field("hp") hp: String,
         @Field("position_id") position_id: String
     ): Observable<GlobalResult>
+
+    @FormUrlEncoded
+    @PUT("finish/{id}")
+    fun postScore(
+        @Path("id") id: Int,
+        @FieldMap fields: HashMap<String, Int>
+    ): Observable<PesertaFinish>
 
 
     @GET("position")
