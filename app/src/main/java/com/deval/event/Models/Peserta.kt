@@ -15,6 +15,9 @@ open class Peserta(
     @field:SerializedName("ket")
     open var hp: String? = "",
 
+    @field:SerializedName("jabatan")
+    open var jabatan: String? = "",
+
     @field:SerializedName("score_game1")
     open var scoreGame1: String? = "",
 
