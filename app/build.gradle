@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.selayar.history"
+        applicationId "com.deval.event"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -153,7 +153,7 @@ dependencies {
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
 ////    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 //    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
-//    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation "com.airbnb.android:lottie:3.4.0"
     implementation 'com.budiyev.android:code-scanner:2.1.0'
 
 }

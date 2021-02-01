@@ -6,8 +6,9 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.deval.event.R
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -16,7 +17,7 @@ import java.util.*
 
 class DetailFragment : Fragment(), View.OnClickListener {
 
-    companion object{
+    companion object {
         val ID = "ID"
         val NAMA = "NAMA"
         val DESC = "DESC"
@@ -26,19 +27,20 @@ class DetailFragment : Fragment(), View.OnClickListener {
     private var seconds = 0
 
     // Is the stopwatch running?
-    private val running = false
+    private var running = false
 
-    private val wasRunning = false
+    private var wasRunning = false
 
     private var disposable: Disposable? = null
-    private lateinit var nama : String
-    private lateinit var id : String
-    private lateinit var description : String
-    private lateinit var bg : String
+    private lateinit var nama: String
+    private lateinit var id: String
+    private lateinit var description: String
+    private lateinit var bg: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(R.transition.show_on_top)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(R.transition.show_on_top)
     }
 
     override fun onCreateView(
@@ -57,6 +59,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
         btn_detail_stop.setOnClickListener(this)
         btn_detail_start.setOnClickListener(this)
         btn_detail_reset.setOnClickListener(this)
+        btn_detail_lanjut.setOnClickListener(this)
+        runTimer()
     }
 
     private fun runTimer() {
@@ -84,7 +88,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                 val time: String = java.lang.String
                     .format(
                         Locale.getDefault(),
-                        "%d:%02d:%02d", hours,
+                        "%02d:%02d:%02d", hours,
                         minutes, secs
                     )
 
@@ -104,23 +108,42 @@ class DetailFragment : Fragment(), View.OnClickListener {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (wasRunning) {
+            running = true;
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         disposable?.dispose()
     }
 
     override fun onClick(v: View?) {
-        when (v?.id){
+        when (v?.id) {
             R.id.btn_detail_start -> {
-                runTimer()
+                running = true;
+                btn_detail_start.isEnabled = false
+                btn_detail_stop.isEnabled = true
             }
 
             R.id.btn_detail_stop -> {
-
+                running = false;
+                btn_detail_start.isEnabled = true
+                btn_detail_stop.isEnabled = false
             }
 
             R.id.btn_detail_reset -> {
+                running = false;
+                seconds = 0;
+                btn_detail_start.isEnabled = true
+                btn_detail_stop.isEnabled = true
+            }
 
+            R.id.btn_detail_lanjut -> {
+                (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                    .navigate(R.id.action_detailFragment_to_moreFragment)
             }
         }
     }

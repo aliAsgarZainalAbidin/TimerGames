@@ -4,64 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".fragment.detail.more.MoreFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_more_nama"
-            style="@style/TextAppearance.MdcTypographyStyles.Subtitle1.Bold"
+        <ImageView
+            android:id="@+id/iv_more_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
-            android:text="Gong Nekara"
+            android:layout_height="@dimen/_140dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_rectangle_1"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_more_lokasi"
-            android:layout_marginHorizontal="@dimen/_16dp"
-            android:text="Matalalang, Kec. Bontoharu, Kab. Kep. Selayar"
-            app:layout_constraintTop_toBottomOf="@id/tv_more_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_more_ket"
-            style="@style/TextAppearance.MdcTypographyStyles.Body3"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:inputType="textMultiLine"
-            android:text="lorem lkajs dakjsdsda asdasdsad asda akjsda lkasd kljasdlkjasd laksdkjasdlkjasdlkjasd asdlkjasldkj sadlkajsd lkasjd lkjkljasdlk laksjdasd laksjdaklsjd asd lkjlkjkjsdalkjalk asldkjas ask"
-            app:layout_constraintTop_toBottomOf="@id/tv_more_lokasi" />
+            android:layout_marginTop="@dimen/_36dp"
+            android:layout_marginBottom="@dimen/_36dp"
+            app:cardCornerRadius="@dimen/_16dp"
+            app:cardElevation="@dimen/_4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_more_title_gambar"
-            style="@style/TextAppearance.MdcTypographyStyles.Body3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:text="Gambar"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_more_ket" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_12dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_more_gambars"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/_32dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/tv_more_title_gambar"
-            tools:listitem="@layout/rv_image_item" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etl_more_nama"
+                    style="@style/TextInputEditText.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_more_nama"
+                        style="@style/TextInputEditText.Custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:inputType="text"
+                        android:textSize="@dimen/_14sp"
+                        tools:text="Ali Asgar Zainal Abidin" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etl_more_waktu"
+                    style="@style/TextInputEditText.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Waktu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etl_more_nama">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_more_waktu"
+                        style="@style/TextInputEditText.Custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:text="00:02:00"
+                        android:textSize="@dimen/_14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etl_more_score"
+                    style="@style/TextInputEditText.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Score"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etl_more_waktu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_more_score"
+                        style="@style/TextInputEditText.Custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/_14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:src="@drawable/wisata"
+                    android:id="@+id/iv_more_pict"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="@dimen/_200dp"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:layout_marginBottom="@dimen/_24dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etl_more_score" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_more_upload"
+                    style="@style/Button.Contained"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:layout_marginEnd="@dimen/_4dp"
+                    android:layout_weight="0.3"
+                    android:text="Upload"
+                    android:textSize="@dimen/_14sp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_more_pict" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
