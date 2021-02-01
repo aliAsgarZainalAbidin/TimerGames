@@ -41,13 +41,22 @@ interface ApiInterface {
         @Path("id") id: String
     ): Observable<ModelWrapper<Peserta>>
 
-    @GET("register/{id}")
+//    @PATCH("register/{id}")
+//    fun postPeserta(
+//        @Path("id") id: String,
+//        @Query("name") name: String,
+//        @Query("hp") hp: String,
+//        @Query("position_id") position: String
+//    ): Observable<Peserta>
+
+    @FormUrlEncoded
+    @PUT("register/{id}")
     fun postPeserta(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Field("name") name: String,
         @Field("hp") hp: String,
-        @Field("position_id") position: String
-    ): Observable<Peserta>
+        @Field("position_id") position_id: String
+    ): Observable<GlobalResult>
 
 
     @GET("position")

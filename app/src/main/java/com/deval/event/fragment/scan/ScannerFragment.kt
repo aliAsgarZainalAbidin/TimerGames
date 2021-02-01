@@ -29,17 +29,17 @@ import kotlinx.android.synthetic.main.fragment_scanner.*
 
 class ScannerFragment : Fragment() {
 
-    companion object{
+    companion object {
         val ID = "ID"
         val NAMA = "NAMA"
         val DESC = "DESC"
         val BG = "BG"
     }
 
-    private lateinit var nama : String
-    private lateinit var id : String
-    private lateinit var description : String
-    private lateinit var bg : String
+    private lateinit var nama: String
+    private lateinit var id: String
+    private lateinit var description: String
+    private lateinit var bg: String
 
     lateinit var codeScanner: CodeScanner
 
@@ -91,7 +91,7 @@ class ScannerFragment : Fragment() {
         disposable?.dispose()
     }
 
-    fun getQRCode(id : String) {
+    fun getQRCode(id: String) {
         disposable = restForeground
             .getQR(id)
             .subscribeOn(io())
@@ -107,12 +107,13 @@ class ScannerFragment : Fragment() {
 
     fun onSuccessQR(data: Peserta) {
         data.let {
-            val namaPeserta :String? = it.nama
+            val namaPeserta: String? = it.nama
             Toast.makeText(requireContext(), namaPeserta, Toast.LENGTH_SHORT).show()
             val bundle = Bundle()
             bundle.putString(DetailFragment.ID, id)
+            bundle.putString(DetailFragment.ID_NAMA, data.id)
 
-            if (namaPeserta.isNullOrEmpty()){
+            if (namaPeserta.isNullOrEmpty()) {
                 //Arahkan Ke Update data akun
                 Log.d(TAG, "onSuccessQR: NULL NAME")
                 (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)

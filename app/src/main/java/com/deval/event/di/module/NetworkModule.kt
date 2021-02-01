@@ -3,6 +3,7 @@ package com.deval.event.di.module
 import android.os.Build
 import com.deval.event.BuildConfig
 import com.deval.event.Retrofit.ApiInterface
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.*

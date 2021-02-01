@@ -1,6 +1,7 @@
 package com.deval.event.fragment.regis
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.budiyev.android.codescanner.CodeScanner
+import com.deval.event.BuildConfig.TAG
 import com.deval.event.Models.Peserta
+import com.deval.event.Models.PesertaUpdate
 import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.Util.CheckItem
@@ -25,10 +28,12 @@ class RegisFragment : Fragment() {
 
     companion object {
         val ID = "ID"
+        val ID_NAMA = "ID_NAMA"
     }
 
     private lateinit var id: String
-    private var listUnit  = ArrayList<String?>()
+    private lateinit var idNama: String
+    private var listUnit = ArrayList<String?>()
     private val restForeground by lazy { ApiFactory.create(false) }
     private var disposable: Disposable? = null
 
@@ -43,6 +48,7 @@ class RegisFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         id = arguments?.getString(ID).toString()
+        idNama = arguments?.getString(ID_NAMA).toString()
 
         getUnit()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, listUnit)
@@ -59,7 +65,7 @@ class RegisFragment : Fragment() {
         }
     }
 
-    fun getUnit(){
+    fun getUnit() {
         disposable = restForeground
             .getUnit()
             .subscribeOn(io())
@@ -69,27 +75,31 @@ class RegisFragment : Fragment() {
                 it.data?.forEach { data ->
                     listUnit.add(data.nama)
                 }
-            },{
-                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-            })
-    }
-
-    fun postPeserta(nama: String, hp: String, unit: String) {
-        disposable = restForeground
-            .postPeserta(id, nama, hp, unit)
-            .subscribeOn(io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                onSuccessPeserta(it)
             }, {
                 Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
             })
     }
 
-    fun onSuccessPeserta(peserta: Peserta) {
+    fun postPeserta(nama: String, hp: String, unit: String) {
+        val peserta = PesertaUpdate()
+        peserta.hp = hp
+        peserta.nama = nama
+        peserta.idJabatan = unit
+        disposable = restForeground
+            .postPeserta(idNama.toInt(), nama, hp, unit)
+            .subscribeOn(io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                onSuccessPeserta()
+            }, {
+                Log.d(TAG, "postPeserta: ${it.message}")
+            })
+    }
+
+    fun onSuccessPeserta() {
         val bundle = Bundle()
         bundle.putString(DetailFragment.ID, id)
-        bundle.putString(DetailFragment.ID_NAMA, peserta.id)
+        bundle.putString(DetailFragment.ID_NAMA, idNama)
 
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
             .navigate(R.id.action_regisFragment_to_detailFragment, bundle)
