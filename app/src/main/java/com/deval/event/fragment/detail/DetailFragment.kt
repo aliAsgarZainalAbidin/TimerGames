@@ -6,10 +6,12 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.deval.event.R
+import com.deval.event.fragment.detail.more.MoreFragment
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.util.*
@@ -21,6 +23,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val ID = "ID"
         val ID_NAMA = "ID_NAMA"
         val NAMA = "NAMA"
+        val TIME = "TIME"
         val DESC = "DESC"
         val BG = "BG"
     }
@@ -35,6 +38,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
     private var disposable: Disposable? = null
     private lateinit var nama: String
     private lateinit var id: String
+    private lateinit var idNama: String
     private lateinit var description: String
     private lateinit var bg: String
 
@@ -56,6 +60,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         id = arguments?.getString(ID).toString()
+        idNama = arguments?.getString(ID_NAMA).toString()
 
         btn_detail_stop.setOnClickListener(this)
         btn_detail_start.setOnClickListener(this)
@@ -143,8 +148,21 @@ class DetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_detail_lanjut -> {
-                (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-                    .navigate(R.id.action_detailFragment_to_moreFragment)
+                if (!running) {
+                    val bundle = Bundle()
+                    bundle.putString(MoreFragment.ID, id)
+                    bundle.putString(MoreFragment.ID_NAMA, idNama)
+                    bundle.putString(MoreFragment.TIME, tv_detail_time.text.toString())
+
+                    (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                        .navigate(R.id.action_detailFragment_to_moreFragment, bundle)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Silahkan tekan tombol STOP terlebih dahulu",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

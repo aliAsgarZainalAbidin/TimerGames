@@ -111,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:enabled="false"
-                            android:text="00:02:00"
+                            tools:text="00:02:00"
                             android:textSize="@dimen/_14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
