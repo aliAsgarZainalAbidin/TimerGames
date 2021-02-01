@@ -2,9 +2,8 @@ package com.deval.event.Retrofit
 
 import com.deval.event.Model.GlobalResult
 import com.deval.event.Model.ModelListWrapper
-import com.deval.event.Models.Games
-import com.deval.event.Models.Peserta
-import com.deval.event.Models.WisataSejarah
+import com.deval.event.Models.*
+import com.deval.event.Models.Unit
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -34,19 +33,28 @@ interface ApiInterface {
     //Kode untuk aplikasi mulai dari sini
 
 
+    @GET("game")
+    fun getAllGames(): Observable<ModelListWrapper<Games>>
 
-    @GET("travel/")
-    fun getAllGames(
-        @Query("page") page:Int
-    ):Observable<ModelListWrapper<Games>>
-
-    @GET("travel/{slug}")
+    @GET("register/{id}")
     fun getQR(
-        @Path("slug") slug: String
-    ):Observable<Peserta>
+        @Path("id") id: String
+    ): Observable<ModelWrapper<Peserta>>
+
+    @GET("register/{id}")
+    fun postPeserta(
+        @Path("id") id: String,
+        @Field("name") name: String,
+        @Field("hp") hp: String,
+        @Field("position_id") position: String
+    ): Observable<Peserta>
+
+
+    @GET("position")
+    fun getUnit(): Observable<ModelListWrapper<Unit>>
 
     @GET("travel/")
     fun getWisata(
-        @Query("search") search:String
-    ):Observable<ModelListWrapper<Games>>
+        @Query("search") search: String
+    ): Observable<ModelListWrapper<Games>>
 }

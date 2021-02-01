@@ -50,16 +50,16 @@ class HomeFragment : Fragment(), Injectable, GamesOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        for (i in 1..3) {
-            var games = Games()
-            games.idGames = "${i}"
-            games.namaGames = "Permainan Pertama"
-            games.descGames = "Deskripsi Permainan Pertama"
-            games.bg = R.drawable.wisata.toString()
-            listGames.add(games)
-        }
+//        for (i in 1..3) {
+//            var games = Games()
+//            games.idGames = "${i}"
+//            games.namaGames = "Permainan Pertama"
+//            games.descGames = "Deskripsi Permainan Pertama"
+//            games.bg = R.drawable.wisata.toString()
+//            listGames.add(games)
+//        }
 
-//        getAllGames()
+        getAllGames()
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -113,7 +113,7 @@ class HomeFragment : Fragment(), Injectable, GamesOnClickListener {
 
     fun getAllGames() {
         disposable = restForeground
-            .getAllGames(page)
+            .getAllGames()
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe({
@@ -121,7 +121,6 @@ class HomeFragment : Fragment(), Injectable, GamesOnClickListener {
             }, {
                 Log.d(TAG, "getAllGames: $it")
             })
-        Log.d(TAG, "getAllGames: REQUEST $page")
     }
 
     fun onSuccessGames(data: ModelListWrapper<Games>) {

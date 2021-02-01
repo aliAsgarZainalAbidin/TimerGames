@@ -7,16 +7,19 @@ import io.realm.internal.Keep
 @Keep
 open class Games (
 
-    @field:SerializedName("id")
+    @field:SerializedName("slug")
     open var idGames: String? = "",
 
-    @field:SerializedName("nama")
+    @field:SerializedName("name")
     open var namaGames: String? = "",
 
-    @field:SerializedName("ket")
+    @field:SerializedName("description")
     open var descGames: String? = "",
 
-    @field:SerializedName("bg")
+    @field:SerializedName("duration")
+    open var duration: String? = "",
+
+    @field:SerializedName("img")
     open var bg: String? = ""
 
 ) : RealmObject()

@@ -69,7 +69,7 @@ class GamesAdapter(private val list: ArrayList<Games>, private val listener: Gam
                     .diskCacheStrategyOf(DiskCacheStrategy.ALL)
 
                 Glide.with(itemView.context)
-                    .load(games.bg?.toInt())
+                    .load(games.bg)
                     .thumbnail(Glide.with(context).load(R.mipmap.round_logo).thumbnail(0.25f))
                     .apply(requestOption)
                     .into(iv_layout_item_bg)

@@ -21,12 +21,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "TAG", '"WisataSejarah"'
-            buildConfigField "String", "BASE_URL", '"http://deval.id/api/"'
+            buildConfigField "String", "TAG", '"Games"'
+            buildConfigField "String", "BASE_URL", '"http://selayar.xyz/api/"'
         }
         release {
-            buildConfigField "String", "TAG", '"WisataSejarah"'
-            buildConfigField "String", "BASE_URL", '"http://deval.id/api/"'
+            buildConfigField "String", "TAG", '"Games"'
+            buildConfigField "String", "BASE_URL", '"http://selayar.xyz/api/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

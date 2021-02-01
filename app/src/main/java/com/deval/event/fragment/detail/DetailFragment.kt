@@ -19,6 +19,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     companion object {
         val ID = "ID"
+        val ID_NAMA = "ID_NAMA"
         val NAMA = "NAMA"
         val DESC = "DESC"
         val BG = "BG"

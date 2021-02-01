@@ -18,8 +18,8 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pemesanan_title"
-                style="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                android:id="@+id/tv_pregis_title"
+                style="@style/TextAppearance.MdcTypographyStyles.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16dp"
@@ -47,7 +47,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_more_bg"
+                android:id="@+id/iv_regis_bg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_140dp"
                 android:scaleType="fitXY"
@@ -69,7 +69,7 @@
                     android:padding="@dimen/_12dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etl_more_nama"
+                        android:id="@+id/etl_regis_nama"
                         style="@style/TextInputEditText.Custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_more_nama"
+                            android:id="@+id/et_regis_nama"
                             style="@style/TextInputEditText.Custom"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -91,17 +91,17 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etl_more_hp"
+                        android:id="@+id/etl_regis_hp"
                         style="@style/TextInputEditText.Custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="No. Hp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/etl_more_nama">
+                        app:layout_constraintTop_toBottomOf="@id/etl_regis_nama">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_more_hp"
+                            android:id="@+id/et_regis_hp"
                             style="@style/TextInputEditText.Custom"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -112,17 +112,17 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etl_more_unit"
+                        android:id="@+id/etl_regis_unit"
                         style="@style/Spinner.Custom"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Unit/Divisi"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/etl_more_hp">
+                        app:layout_constraintTop_toBottomOf="@id/etl_regis_hp">
 
                         <AutoCompleteTextView
-                            android:id="@+id/et_more_unit"
+                            android:id="@+id/et_regis_unit"
                             style="@style/Spinner.Custom"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
 
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_more_regis"
+                        android:id="@+id/btn_regis_regis"
                         style="@style/Button.Contained"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_46dp"
@@ -147,7 +147,7 @@
                         android:text="Registrasi"
                         android:textSize="@dimen/_14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/etl_more_unit" />
+                        app:layout_constraintTop_toBottomOf="@id/etl_regis_unit" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

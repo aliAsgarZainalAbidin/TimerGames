@@ -9,14 +9,17 @@ open class Peserta(
     @field:SerializedName("id")
     open var id: String? = "",
 
-    @field:SerializedName("nama")
+    @field:SerializedName("name")
     open var nama: String? = "",
 
-    @field:SerializedName("ket")
+    @field:SerializedName("hp")
     open var hp: String? = "",
 
-    @field:SerializedName("jabatan")
+    @field:SerializedName("position")
     open var jabatan: String? = "",
+
+    @field:SerializedName("position_id")
+    open var idJabatan: String? = "",
 
     @field:SerializedName("score_game1")
     open var scoreGame1: String? = "",

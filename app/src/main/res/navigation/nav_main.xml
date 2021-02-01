@@ -54,5 +54,9 @@
         android:id="@+id/regisFragment"
         android:name="com.deval.event.fragment.regis.RegisFragment"
         android:label="fragment_regis"
-        tools:layout="@layout/fragment_regis" />
+        tools:layout="@layout/fragment_regis" >
+        <action
+            android:id="@+id/action_regisFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

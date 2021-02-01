@@ -16,6 +16,7 @@ import com.budiyev.android.codescanner.ScanMode
 import com.deval.event.BuildConfig.TAG
 import com.deval.event.Model.ModelListWrapper
 import com.deval.event.Models.Games
+import com.deval.event.Models.ModelWrapper
 import com.deval.event.Models.Peserta
 import com.deval.event.Models.WisataSejarah
 import com.deval.event.R
@@ -73,10 +74,6 @@ class ScannerFragment : Fragment() {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-        scanner.setOnClickListener {
-            (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-                .navigate(R.id.action_scannerFragment_to_detailFragment)
-        }
     }
 
     override fun onResume() {
@@ -101,7 +98,7 @@ class ScannerFragment : Fragment() {
             .observeOn(mainThread())
             .subscribe({
                 codeScanner.releaseResources()
-                onSuccessQR(it)
+                it.data?.let { data -> onSuccessQR(data) }
             }, {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "getQRCode: $it")
@@ -111,13 +108,21 @@ class ScannerFragment : Fragment() {
     fun onSuccessQR(data: Peserta) {
         data.let {
             val namaPeserta :String? = it.nama
+            Toast.makeText(requireContext(), namaPeserta, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putString(DetailFragment.ID, id)
 
             if (namaPeserta.isNullOrEmpty()){
                 //Arahkan Ke Update data akun
+                Log.d(TAG, "onSuccessQR: NULL NAME")
+                (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                    .navigate(R.id.action_scannerFragment_to_regisFragment, bundle)
             } else {
+                bundle.putString(DetailFragment.NAMA, namaPeserta)
+                Log.d(TAG, "onSuccessQR: $namaPeserta")
                 //Arahkan Ke Timer
                 (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-                    .navigate(R.id.action_scannerFragment_to_detailFragment)
+                    .navigate(R.id.action_scannerFragment_to_detailFragment, bundle)
             }
         }
     }
