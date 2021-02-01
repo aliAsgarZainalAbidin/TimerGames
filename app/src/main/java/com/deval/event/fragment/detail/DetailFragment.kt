@@ -21,6 +21,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     companion object {
         val ID = "ID"
+        val SLUG = "SLUG"
         val ID_NAMA = "ID_NAMA"
         val NAMA = "NAMA"
         val TIME = "TIME"
@@ -37,7 +38,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     private var disposable: Disposable? = null
     private lateinit var nama: String
-    private lateinit var id: String
+    private lateinit var slug: String
     private lateinit var idNama: String
     private lateinit var description: String
     private lateinit var bg: String
@@ -59,7 +60,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id = arguments?.getString(ID).toString()
+        slug = arguments?.getString(SLUG).toString()
         idNama = arguments?.getString(ID_NAMA).toString()
 
         btn_detail_stop.setOnClickListener(this)
@@ -150,7 +151,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             R.id.btn_detail_lanjut -> {
                 if (!running) {
                     val bundle = Bundle()
-                    bundle.putString(MoreFragment.ID, id)
+                    bundle.putString(MoreFragment.SLUG, slug)
                     bundle.putString(MoreFragment.ID_NAMA, idNama)
                     bundle.putString(MoreFragment.TIME, tv_detail_time.text.toString())
 

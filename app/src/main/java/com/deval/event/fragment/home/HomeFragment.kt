@@ -156,7 +156,7 @@ class HomeFragment : Fragment(), Injectable, GamesOnClickListener {
     override fun GameOnClickListener(games: Games, position: Int, root: CardView) {
         super.GameOnClickListener(games, position, root)
         val bundle = Bundle()
-        bundle.putString(ScannerFragment.ID, games.idGames)
+        bundle.putString(ScannerFragment.SLUG, games.idGames)
 
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
             .navigate(R.id.action_homeFragment_to_scannerFragment, bundle)

@@ -41,6 +41,11 @@ interface ApiInterface {
         @Path("id") id: String
     ): Observable<ModelWrapper<Peserta>>
 
+    @GET("game/{slug}")
+    fun getGameShow(
+        @Path("slug") slug: String
+    ): Observable<ModelWrapper<Games>>
+
 //    @PATCH("register/{id}")
 //    fun postPeserta(
 //        @Path("id") id: String,

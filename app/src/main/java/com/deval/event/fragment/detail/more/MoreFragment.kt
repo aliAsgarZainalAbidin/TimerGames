@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.deval.event.BuildConfig
 import com.deval.event.Featured.GlideApp
+import com.deval.event.Models.Games
 import com.deval.event.Models.Peserta
 import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
@@ -74,19 +75,37 @@ class MoreFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id = arguments?.getString(ID).toString()
+        slug = arguments?.getString(SLUG).toString()
         idNama = arguments?.getString(ID_NAMA).toString()
         time = arguments?.getString(TIME).toString()
-
         getQRCode(idNama)
+        getGameShow(slug)
+
         iv_more_pict.setOnClickListener {
             dispatchTakePictureIntent()
         }
-
         btn_more_upload.setOnClickListener {
             showLoading()
         }
+    }
 
+    fun getGameShow(slug: String) {
+        disposable = restForeground
+            .getGameShow(slug)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.data?.let { data -> onSuccessGame(data) }
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(BuildConfig.TAG, "getGameShow: $it")
+            })
+    }
+
+    fun onSuccessGame(data: Games) {
+        data.let {
+            id = data.id.toString()
+        }
     }
 
     fun getQRCode(id: String) {

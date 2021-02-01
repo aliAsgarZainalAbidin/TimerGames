@@ -6,6 +6,8 @@ import io.realm.internal.Keep
 
 @Keep
 open class Games (
+    @field:SerializedName("id")
+    open var id: String? = "",
 
     @field:SerializedName("slug")
     open var idGames: String? = "",

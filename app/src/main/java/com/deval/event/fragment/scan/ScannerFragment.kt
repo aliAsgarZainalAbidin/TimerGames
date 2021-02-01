@@ -31,13 +31,14 @@ class ScannerFragment : Fragment() {
 
     companion object {
         val ID = "ID"
+        val SLUG = "SLUG"
         val NAMA = "NAMA"
         val DESC = "DESC"
         val BG = "BG"
     }
 
     private lateinit var nama: String
-    private lateinit var id: String
+    private lateinit var slug: String
     private lateinit var description: String
     private lateinit var bg: String
 
@@ -57,7 +58,7 @@ class ScannerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id = arguments?.getString(ID).toString()
+        slug = arguments?.getString(SLUG).toString()
         codeScanner = CodeScanner(requireActivity(), scanner)
 
         codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
@@ -110,7 +111,7 @@ class ScannerFragment : Fragment() {
             val namaPeserta: String? = it.nama
             Toast.makeText(requireContext(), namaPeserta, Toast.LENGTH_SHORT).show()
             val bundle = Bundle()
-            bundle.putString(DetailFragment.ID, id)
+            bundle.putString(DetailFragment.SLUG, slug)
             bundle.putString(DetailFragment.ID_NAMA, data.id)
 
             if (namaPeserta.isNullOrEmpty()) {
