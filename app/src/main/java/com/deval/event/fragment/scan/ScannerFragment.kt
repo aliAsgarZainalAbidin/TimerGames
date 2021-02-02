@@ -31,6 +31,8 @@ class ScannerFragment : Fragment() {
 
     companion object {
         val ID = "ID"
+        val TYPE = "TYPE"
+        val TYPE_OUT = "TYPE_OUT"
         val SLUG = "SLUG"
         val NAMA = "NAMA"
         val DESC = "DESC"
@@ -39,6 +41,7 @@ class ScannerFragment : Fragment() {
 
     private lateinit var nama: String
     private lateinit var slug: String
+    private lateinit var type: String
     private lateinit var description: String
     private lateinit var bg: String
 
@@ -59,6 +62,7 @@ class ScannerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         slug = arguments?.getString(SLUG).toString()
+        type = arguments?.getString(TYPE).toString()
         codeScanner = CodeScanner(requireActivity(), scanner)
 
         codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
@@ -71,8 +75,13 @@ class ScannerFragment : Fragment() {
 
         codeScanner.decodeCallback = DecodeCallback {
             activity?.runOnUiThread {
-                getQRCode(it.toString())
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "onViewCreated: $type")
+                if (!type.equals(TYPE_OUT)) {
+                    getQRCode(it.toString())
+                } else {
+                    scanOut(it.toString())
+                }
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -90,6 +99,20 @@ class ScannerFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         disposable?.dispose()
+    }
+
+    fun scanOut(id: String) {
+        disposable = restForeground
+            .scanOut(id.toInt())
+            .subscribeOn(io())
+            .observeOn(mainThread())
+            .subscribe({
+                (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                    .navigate(R.id.action_scannerFragment_to_homeFragment)
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "getQRCode: $it")
+            })
     }
 
     fun getQRCode(id: String) {

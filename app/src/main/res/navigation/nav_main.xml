@@ -36,7 +36,13 @@
         android:id="@+id/moreFragment"
         android:name="com.deval.event.fragment.detail.more.MoreFragment"
         android:label="fragment_more"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment"
+            app:popUpTo="@id/scannerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/scannerFragment"
         android:name="com.deval.event.fragment.scan.ScannerFragment"
@@ -51,6 +57,10 @@
         <action
             android:id="@+id/action_scannerFragment_to_regisFragment"
             app:destination="@id/regisFragment" />
+        <action
+            android:id="@+id/action_scannerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/regisFragment"

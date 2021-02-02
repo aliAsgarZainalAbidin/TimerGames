@@ -5,6 +5,7 @@ import com.deval.event.Model.ModelListWrapper
 import com.deval.event.Models.*
 import com.deval.event.Models.Unit
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -70,6 +71,18 @@ interface ApiInterface {
     fun postScore(
         @Path("id") id: Int,
         @FieldMap fields: HashMap<String, Int>
+    ): Observable<PesertaFinish>
+
+    @PUT("finish/{id}")
+    fun scanOut(
+        @Path("id") id: Int
+    ): Observable<PesertaFinish>
+
+    @Multipart
+    @POST("image/{id}")
+    fun postImage(
+        @Path("id") id: Int,
+        @Part img: MultipartBody.Part
     ): Observable<PesertaFinish>
 
 

@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.deval.event.BuildConfig
 import com.deval.event.BuildConfig.TAG
@@ -27,10 +28,18 @@ import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.Util.BaseFragment
 import com.deval.event.fragment.detail.DetailFragment
+import com.deval.event.fragment.scan.ScannerFragment
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.resolution
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_more.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.jetbrains.anko.startActivityForResult
 import java.io.File
 import java.io.IOException
@@ -89,7 +98,50 @@ class MoreFragment : BaseFragment() {
 
         btn_more_upload.setOnClickListener {
             showLoading()
-            uploadScore()
+            val score = et_more_score.text.toString()
+            if (!score.isBlank() && !score.isEmpty() && !currentPhotoPath.isEmpty() && !currentPhotoPath.isBlank()) {
+                uploadScore()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Pastika Score dan Foto terisi sebelum diupload",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    fun uploadFoto() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            val fileFoto = File(currentPhotoPath)
+            val compressedImageFile =
+                activity?.let {
+                    Compressor.compress(it, fileFoto, Dispatchers.Main) {
+                        resolution(300, 300)
+                    }
+                }
+            val requestBodyFoto =
+                compressedImageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val foto =
+                requestBodyFoto?.let { MultipartBody.Part.createFormData("img", fileFoto.name, it) }
+
+            disposable = foto?.let {
+                restForeground
+                    .postImage(idNama.toInt(), it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        dialogAnimation?.dismiss()
+                        val bundle = Bundle()
+                        bundle.putString(ScannerFragment.TYPE, ScannerFragment.TYPE_OUT)
+                        (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                            .navigate(R.id.action_moreFragment_to_scannerFragment, bundle)
+                        //                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                    }, {
+                        //                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                        Log.d(BuildConfig.TAG, "uploadFoto: ${it.message}")
+                    })
+            }
         }
     }
 
@@ -104,10 +156,10 @@ class MoreFragment : BaseFragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                dialogAnimation?.dismiss()
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                uploadFoto()
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             }, {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(BuildConfig.TAG, "getGameShow: ${it.message}")
             })
     }

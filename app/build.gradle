@@ -147,7 +147,7 @@ dependencies {
     implementation deps.fragment.fragment_runtime_ktx
 
     //third party
-//    implementation 'id.zelory:compressor:3.0.0'
+    implementation 'id.zelory:compressor:3.0.0'
 ////    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v1.7.0'
 //    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
