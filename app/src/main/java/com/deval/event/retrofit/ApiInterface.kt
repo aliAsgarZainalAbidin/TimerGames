@@ -64,7 +64,7 @@ interface ApiInterface {
         @Field("name") name: String,
         @Field("hp") hp: String,
         @Field("position_id") position_id: String
-    ): Observable<GlobalResult>
+    ): Observable<PesertaUpdate>
 
     @FormUrlEncoded
     @PUT("finish/{id}")

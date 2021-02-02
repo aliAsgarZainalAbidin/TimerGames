@@ -70,7 +70,7 @@ class GamesAdapter(private val list: ArrayList<Games>, private val listener: Gam
 
                 Glide.with(itemView.context)
                     .load(games.bg)
-                    .thumbnail(Glide.with(context).load(R.mipmap.round_logo).thumbnail(0.25f))
+                    .thumbnail(Glide.with(context).load(R.drawable.ic_baseline_image_24).thumbnail(0.25f))
                     .apply(requestOption)
                     .into(iv_layout_item_bg)
 

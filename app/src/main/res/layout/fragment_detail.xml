@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
+    android:background="@drawable/ic__"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -14,8 +15,9 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_detail_title"
-            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline5"
             android:layout_width="wrap_content"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/_24dp"
@@ -23,9 +25,12 @@
             tools:text="Permainan Pertama" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:background="@drawable/ic_rectangle_12"
             android:id="@+id/tv_detail_time"
             style="@style/TextAppearance.MdcTypographyStyles.Headline3"
             android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_96dp"

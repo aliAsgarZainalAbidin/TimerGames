@@ -131,6 +131,7 @@ class HomeFragment : Fragment(), Injectable, GamesOnClickListener {
                 adapterGames.notifyDataSetChanged()
             } else {
                 val position = listGames.size
+                listGames.clear()
                 listGames.addAll(it)
                 adapterGames.notifyItemInserted(position)
             }

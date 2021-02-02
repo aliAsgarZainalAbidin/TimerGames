@@ -38,6 +38,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:background="@drawable/ic__"
         android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">

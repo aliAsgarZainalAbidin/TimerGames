@@ -3,6 +3,7 @@ package com.deval.event.fragment.detail
 import android.os.Bundle
 import android.os.Handler
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.deval.event.BuildConfig
+import com.deval.event.BuildConfig.TAG
+import com.deval.event.Models.Games
 import com.deval.event.R
+import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.fragment.detail.more.MoreFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_more.*
 import java.util.*
@@ -37,6 +44,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     private var wasRunning = false
 
+    private val restForeground by lazy { ApiFactory.create(false) }
     private var disposable: Disposable? = null
     private lateinit var nama: String
     private lateinit var slug: String
@@ -63,12 +71,34 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
         slug = arguments?.getString(SLUG).toString()
         idNama = arguments?.getString(ID_NAMA).toString()
+        getGameShow(slug)
+
+        Log.d(TAG, "onViewCreated: $slug")
 
         btn_detail_stop.setOnClickListener(this)
         btn_detail_start.setOnClickListener(this)
         btn_detail_reset.setOnClickListener(this)
         btn_detail_lanjut.setOnClickListener(this)
         runTimer()
+    }
+
+    fun getGameShow(slug: String) {
+        disposable = restForeground
+            .getGameShow(slug)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.data?.let { data -> onSuccessGame(data) }
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(BuildConfig.TAG, "getGameShow: $it")
+            })
+    }
+
+    fun onSuccessGame(data: Games) {
+        data.let {
+            tv_detail_title.setText(data.namaGames)
+        }
     }
 
     private fun runTimer() {
@@ -150,7 +180,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_detail_lanjut -> {
-                if (!running && seconds > 0) {
+                if (!running && seconds >= 0) {
                     val bundle = Bundle()
                     bundle.putString(MoreFragment.SLUG, slug)
                     bundle.putString(MoreFragment.ID_NAMA, idNama)
@@ -159,11 +189,20 @@ class DetailFragment : Fragment(), View.OnClickListener {
                     (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                         .navigate(R.id.action_detailFragment_to_moreFragment, bundle)
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Silahkan tekan tombol STOP terlebih dahulu",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (seconds == 0){
+                        Toast.makeText(
+                            requireContext(),
+                            "Silahkan tekan tombol Start untuk memulai",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Silahkan tekan tombol STOP terlebih dahulu",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                 }
             }
         }

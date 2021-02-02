@@ -31,7 +31,7 @@ class RegisFragment : Fragment() {
         val ID_NAMA = "ID_NAMA"
     }
 
-    private lateinit var id: String
+    private lateinit var slug : String
     private lateinit var idNama: String
     private var listUnit = ArrayList<String?>()
     private val restForeground by lazy { ApiFactory.create(false) }
@@ -47,8 +47,8 @@ class RegisFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        id = arguments?.getString(ID).toString()
-        idNama = arguments?.getString(ID_NAMA).toString()
+        slug = arguments?.getString(DetailFragment.SLUG).toString()
+        idNama = arguments?.getString(DetailFragment.ID_NAMA).toString()
 
         getUnit()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, listUnit)
@@ -98,7 +98,7 @@ class RegisFragment : Fragment() {
 
     fun onSuccessPeserta() {
         val bundle = Bundle()
-        bundle.putString(DetailFragment.ID, id)
+        bundle.putString(DetailFragment.SLUG, slug)
         bundle.putString(DetailFragment.ID_NAMA, idNama)
 
         (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
