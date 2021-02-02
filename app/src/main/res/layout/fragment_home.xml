@@ -12,9 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_home_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_140dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_rectangle_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_home_title"
-            style="@style/TextAppearance.MdcTypographyStyles.Subtitle1.Bold"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_24dp"

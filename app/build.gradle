@@ -22,11 +22,11 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "TAG", '"Games"'
-            buildConfigField "String", "BASE_URL", '"http://selayar.xyz/api/"'
+            buildConfigField "String", "BASE_URL", '"http://gamesku.xyz/api/"'
         }
         release {
             buildConfigField "String", "TAG", '"Games"'
-            buildConfigField "String", "BASE_URL", '"http://selayar.xyz/api/"'
+            buildConfigField "String", "BASE_URL", '"http://gamesku.xyz/api/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

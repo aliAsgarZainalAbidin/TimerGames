@@ -14,6 +14,7 @@ import com.deval.event.R
 import com.deval.event.fragment.detail.more.MoreFragment
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_more.*
 import java.util.*
 
 
@@ -149,7 +150,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_detail_lanjut -> {
-                if (!running) {
+                if (!running && seconds > 0) {
                     val bundle = Bundle()
                     bundle.putString(MoreFragment.SLUG, slug)
                     bundle.putString(MoreFragment.ID_NAMA, idNama)

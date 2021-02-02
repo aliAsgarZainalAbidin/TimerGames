@@ -104,9 +104,10 @@ class MoreFragment : BaseFragment() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Pastika Score dan Foto terisi sebelum diupload",
+                    "Pastikan Score dan Foto terisi sebelum diupload",
                     Toast.LENGTH_SHORT
                 ).show()
+                dialogAnimation?.dismiss()
             }
         }
     }
