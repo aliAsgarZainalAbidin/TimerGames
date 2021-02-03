@@ -1,5 +1,6 @@
 package com.deval.event.fragment.detail
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -53,6 +54,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
     private lateinit var bg: String
     private lateinit var countDownTimer: CountDownTimer
     private var timesleft: Long = 300000
+    lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
         slug = arguments?.getString(SLUG).toString()
         idNama = arguments?.getString(ID_NAMA).toString()
         getGameShow(slug)
+        mediaPlayer = MediaPlayer.create(activity?.applicationContext, R.raw.music)
 
         Log.d(TAG, "onViewCreated: $slug")
 
@@ -99,6 +102,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                 Log.d(TAG, "onFinish: ")
             }
         }.start()
+        mediaPlayer.start()
     }
 
     fun getGameShow(slug: String) {
@@ -188,6 +192,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                     timeStart(300000)
                 } else {
                     timeStart(timesleft)
+//                    mediaPlayer.start()
                 }
                 btn_detail_start.isEnabled = false
                 btn_detail_reset.isEnabled = false
@@ -197,6 +202,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
             R.id.btn_detail_stop -> {
                 running = false;
                 countDownTimer.cancel()
+                mediaPlayer.pause()
                 btn_detail_start.isEnabled = true
                 btn_detail_reset.isEnabled = true
                 btn_detail_stop.isEnabled = false
@@ -204,7 +210,9 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
             R.id.btn_detail_reset -> {
                 running = false;
-                countDownTimer.onFinish()
+                timesleft = 300000
+                mediaPlayer.release()
+                mediaPlayer = MediaPlayer.create(activity?.applicationContext, R.raw.music)
                 btn_detail_start.isEnabled = true
                 btn_detail_stop.isEnabled = false
                 btn_detail_reset.isEnabled = false
