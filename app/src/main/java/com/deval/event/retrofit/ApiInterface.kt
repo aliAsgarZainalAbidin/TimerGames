@@ -41,7 +41,7 @@ interface ApiInterface {
 
     @GET("register/{id}")
     fun getQR(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): Observable<ModelWrapper<Peserta>>
 
     @GET("game/{slug}")
@@ -76,6 +76,11 @@ interface ApiInterface {
     @PUT("finish/{id}")
     fun scanOut(
         @Path("id") id: Int
+    ): Observable<PesertaFinish>
+
+    @GET("finish/{id}")
+    fun checkScore(
+        @Path("id") id: String
     ): Observable<PesertaFinish>
 
     @Multipart

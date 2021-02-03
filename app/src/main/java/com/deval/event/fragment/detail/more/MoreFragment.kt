@@ -188,7 +188,7 @@ class MoreFragment : BaseFragment() {
 
     fun getQRCode(id: String) {
         disposable = restForeground
-            .getQR(id)
+            .getQR(id.toInt())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

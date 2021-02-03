@@ -13,7 +13,9 @@ import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.deval.event.BuildConfig
 import com.deval.event.BuildConfig.TAG
+import com.deval.event.Featured.GlideApp
 import com.deval.event.Model.ModelListWrapper
 import com.deval.event.Models.Games
 import com.deval.event.Models.ModelWrapper
@@ -21,13 +23,17 @@ import com.deval.event.Models.Peserta
 import com.deval.event.Models.WisataSejarah
 import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
+import com.deval.event.Util.BaseFragment
 import com.deval.event.fragment.detail.DetailFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.Schedulers.io
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_scanner.*
 
-class ScannerFragment : Fragment() {
+class ScannerFragment : BaseFragment() {
 
     companion object {
         val ID = "ID"
@@ -40,10 +46,13 @@ class ScannerFragment : Fragment() {
     }
 
     private lateinit var nama: String
+    private lateinit var idGames: String
     private lateinit var slug: String
     private lateinit var type: String
     private lateinit var description: String
     private lateinit var bg: String
+    var namaPeserta : String? = null
+    var id : String? = null
 
     lateinit var codeScanner: CodeScanner
 
@@ -64,6 +73,7 @@ class ScannerFragment : Fragment() {
         slug = arguments?.getString(SLUG).toString()
         type = arguments?.getString(TYPE).toString()
         codeScanner = CodeScanner(requireActivity(), scanner)
+        getGameShow(slug)
 
         codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
         codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
@@ -101,6 +111,41 @@ class ScannerFragment : Fragment() {
         disposable?.dispose()
     }
 
+    fun showDialog(){
+        dialogAnimation()
+        dialogAnimationImage?.visibility = View.GONE
+        dialogAnimationTitle?.text = ""
+        dialogAnimationDesc?.text = "Anda telah menyelesaikan game ini, Silahkan lanjut ke stage berikutnya"
+        dialogAnimationProgress?.visibility = View.INVISIBLE
+        dialogAnimationImage?.visibility = View.VISIBLE
+        dialogAnimationImage?.let {
+            context?.let { it1 ->
+                GlideApp.with(it1)
+                    .load(R.drawable.ic_baseline_error_outline_24)
+                    .into(it)
+            }
+        }
+    }
+
+    fun getGameShow(slug: String) {
+        disposable = restForeground
+            .getGameShow(slug)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.data?.let { data -> onSuccessGame(data) }
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(BuildConfig.TAG, "getGameShow: $it")
+            })
+    }
+
+    fun onSuccessGame(data: Games) {
+        data.let {
+            idGames = data.id.toString()
+        }
+    }
+
     fun scanOut(id: String) {
         disposable = restForeground
             .scanOut(id.toInt())
@@ -111,31 +156,66 @@ class ScannerFragment : Fragment() {
                     .navigate(R.id.action_scannerFragment_to_homeFragment)
             }, {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "getQRCode: $it")
+                Log.d(TAG, "scanOut: $it")
+            })
+    }
+
+    fun checkScore(id: String) {
+        disposable = restForeground
+            .checkScore(id)
+            .subscribeOn(io())
+            .observeOn(mainThread())
+            .subscribe({
+                if (idGames.equals("1") && it.stage1?.toInt()!! > 0){
+                    showDialog()
+                } else if (idGames.equals("2") && it.stage2?.toInt()!! > 0){
+                    showDialog()
+                }else if (idGames.equals("3") && it.stage3?.toInt()!! > 0){
+                    showDialog()
+                }else if (idGames.equals("4") && it.stage4?.toInt()!! > 0){
+                    showDialog()
+                }else if (idGames.equals("5") && it.stage5?.toInt()!! > 0){
+                    showDialog()
+                }else if (idGames.equals("6") && it.stage6?.toInt()!! > 0){
+                    showDialog()
+                }else {
+                    val bundle = Bundle()
+                    bundle.putString(DetailFragment.SLUG, slug)
+                    bundle.putString(DetailFragment.ID_NAMA, id)
+                    bundle.putString(DetailFragment.NAMA, namaPeserta)
+
+                    (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                        .navigate(R.id.action_scannerFragment_to_detailFragment, bundle)
+                }
+            }, {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "checkScore: $it")
             })
     }
 
     fun getQRCode(id: String) {
+        Log.d(TAG, "getQRCode: $id")
         disposable = restForeground
-            .getQR(id)
+            .getQR(id.toInt())
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe({
                 codeScanner.releaseResources()
-                it.data?.let { data -> onSuccessQR(data) }
+                it.data?.let { data -> onSuccessQR(data, id) }
             }, {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "getQRCode: $it")
             })
     }
 
-    fun onSuccessQR(data: Peserta) {
+    fun onSuccessQR(data: Peserta, idPeserta : String) {
         data.let {
-            val namaPeserta: String? = it.nama
+            namaPeserta = it.nama
+            id = data.id
             Toast.makeText(requireContext(), namaPeserta, Toast.LENGTH_SHORT).show()
             val bundle = Bundle()
             bundle.putString(DetailFragment.SLUG, slug)
-            bundle.putString(DetailFragment.ID_NAMA, data.id)
+            bundle.putString(DetailFragment.ID_NAMA, id)
 
             if (namaPeserta.isNullOrEmpty()) {
                 //Arahkan Ke Update data akun
@@ -143,11 +223,7 @@ class ScannerFragment : Fragment() {
                 (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                     .navigate(R.id.action_scannerFragment_to_regisFragment, bundle)
             } else {
-                bundle.putString(DetailFragment.NAMA, namaPeserta)
-                Log.d(TAG, "onSuccessQR: $namaPeserta")
-                //Arahkan Ke Timer
-                (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-                    .navigate(R.id.action_scannerFragment_to_detailFragment, bundle)
+                checkScore(idPeserta)
             }
         }
     }
