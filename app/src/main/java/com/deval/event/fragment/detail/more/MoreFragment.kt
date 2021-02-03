@@ -117,6 +117,7 @@ class MoreFragment : BaseFragment() {
             val fileFoto = File(currentPhotoPath)
             val compressedImageFile =
                 activity?.let {
+
                     Compressor.compress(it, fileFoto, Dispatchers.Main) {
                         resolution(300, 300)
                     }

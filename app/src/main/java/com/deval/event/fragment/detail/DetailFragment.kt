@@ -1,6 +1,7 @@
 package com.deval.event.fragment.detail
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.transition.TransitionInflater
 import android.util.Log
@@ -21,7 +22,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_more.*
 import java.util.*
 
 
@@ -51,6 +51,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
     private lateinit var idNama: String
     private lateinit var description: String
     private lateinit var bg: String
+    private lateinit var countDownTimer: CountDownTimer
+    private var timesleft: Long = 300000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +84,23 @@ class DetailFragment : Fragment(), View.OnClickListener {
         runTimer()
     }
 
+    fun timeStart(times: Long) {
+        countDownTimer = object : CountDownTimer(times, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timesleft = millisUntilFinished
+                tv_detail_time.setText("${millisUntilFinished / 1000}")
+                Log.d(TAG, "onTick: $timesleft")
+            }
+
+            override fun onFinish() {
+                timesleft = 300000
+                tv_detail_time.setText("300")
+                this.cancel()
+                Log.d(TAG, "onFinish: ")
+            }
+        }.start()
+    }
+
     fun getGameShow(slug: String) {
         disposable = restForeground
             .getGameShow(slug)
@@ -107,43 +126,45 @@ class DetailFragment : Fragment(), View.OnClickListener {
         val timeView = tv_detail_time
 
         // Creates a new Handler
-        val handler = Handler()
+//        val handler = Handler()
+//
+//        // Call the post() method,
+//        // passing in a new Runnable.
+//        // The post() method processes
+//        // code without a delay,
+//        // so the code in the Runnable
+//        // will run almost immediately.
+//        handler.post(object : Runnable {
+//            override fun run() {
+////                val hours: Int = seconds / 3600
+//                val minutes: Int = seconds % 3600 / 60
+//                val secs: Int = seconds % 60
+//
+//                // Format the seconds into hours, minutes,
+//                // and seconds.
+//                val time: String = java.lang.String
+//                    .format(
+//                        Locale.getDefault(),
+//                        "%02d:%02d",
+//                        minutes, secs
+//                    )
+//
+//                // Set the text view text.
+//                timeView.text = time
+//
+//                // If running is true, increment the
+//                // seconds variable.
+//                if (running) {
+//                    seconds++
+//                }
+//
+//                // Post the code again
+//                // with a delay of 1 second.
+//                handler.postDelayed(this, 1000)
+//            }
+//        })
 
-        // Call the post() method,
-        // passing in a new Runnable.
-        // The post() method processes
-        // code without a delay,
-        // so the code in the Runnable
-        // will run almost immediately.
-        handler.post(object : Runnable {
-            override fun run() {
-                val hours: Int = seconds / 3600
-                val minutes: Int = seconds % 3600 / 60
-                val secs: Int = seconds % 60
 
-                // Format the seconds into hours, minutes,
-                // and seconds.
-                val time: String = java.lang.String
-                    .format(
-                        Locale.getDefault(),
-                        "%02d:%02d:%02d", hours,
-                        minutes, secs
-                    )
-
-                // Set the text view text.
-                timeView.text = time
-
-                // If running is true, increment the
-                // seconds variable.
-                if (running) {
-                    seconds++
-                }
-
-                // Post the code again
-                // with a delay of 1 second.
-                handler.postDelayed(this, 1000)
-            }
-        })
     }
 
     override fun onResume() {
@@ -153,7 +174,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onDestroy() {
+    override
+    fun onDestroy() {
         super.onDestroy()
         disposable?.dispose()
     }
@@ -161,22 +183,31 @@ class DetailFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_detail_start -> {
-                running = true;
+                running = true
+                if (timesleft >= 300000) {
+                    timeStart(300000)
+                } else {
+                    timeStart(timesleft)
+                }
                 btn_detail_start.isEnabled = false
+                btn_detail_reset.isEnabled = false
                 btn_detail_stop.isEnabled = true
             }
 
             R.id.btn_detail_stop -> {
                 running = false;
+                countDownTimer.cancel()
                 btn_detail_start.isEnabled = true
+                btn_detail_reset.isEnabled = true
                 btn_detail_stop.isEnabled = false
             }
 
             R.id.btn_detail_reset -> {
                 running = false;
-                seconds = 0;
+                countDownTimer.onFinish()
                 btn_detail_start.isEnabled = true
-                btn_detail_stop.isEnabled = true
+                btn_detail_stop.isEnabled = false
+                btn_detail_reset.isEnabled = false
             }
 
             R.id.btn_detail_lanjut -> {
@@ -189,7 +220,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                     (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                         .navigate(R.id.action_detailFragment_to_moreFragment, bundle)
                 } else {
-                    if (seconds == 0){
+                    if (seconds == 0) {
                         Toast.makeText(
                             requireContext(),
                             "Silahkan tekan tombol Start untuk memulai",

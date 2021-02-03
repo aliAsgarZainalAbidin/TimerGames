@@ -30,11 +30,11 @@
             style="@style/TextAppearance.MdcTypographyStyles.Headline3"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:text="300"
             android:layout_centerInParent="true"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_96dp"
-            tools:text="00:01:32" />
+            android:layout_marginTop="@dimen/_96dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,6 +59,7 @@
                 android:id="@+id/btn_detail_stop"
                 style="@style/Button.Contained"
                 android:layout_width="0dp"
+                android:enabled="false"
                 android:layout_height="@dimen/_46dp"
                 android:layout_weight="0.3"
                 android:text="Stop"
@@ -69,6 +70,7 @@
                 android:layout_width="0dp"
                 style="@style/Button.Contained"
                 android:layout_height="@dimen/_46dp"
+                android:enabled="false"
                 android:layout_marginStart="@dimen/_4dp"
                 android:layout_weight="0.3"
                 android:text="Reset"
