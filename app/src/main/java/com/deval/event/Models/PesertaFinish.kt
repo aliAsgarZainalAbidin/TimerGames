@@ -8,7 +8,7 @@ import io.realm.internal.Keep
 @Keep
 open class PesertaFinish(
     @field:SerializedName("id")
-    open var id: String? = "",
+    open var id: Int? = -1,
 
     @field:SerializedName("name")
     open var nama: String? = "",

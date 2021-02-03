@@ -127,6 +127,22 @@ class ScannerFragment : BaseFragment() {
         }
     }
 
+    fun showDialogFull(){
+        dialogAnimation()
+        dialogAnimationImage?.visibility = View.GONE
+        dialogAnimationTitle?.text = ""
+        dialogAnimationDesc?.text = "Anda telah menyelesaikan semua permainan"
+        dialogAnimationProgress?.visibility = View.INVISIBLE
+        dialogAnimationImage?.visibility = View.VISIBLE
+        dialogAnimationImage?.let {
+            context?.let { it1 ->
+                GlideApp.with(it1)
+                    .load(R.drawable.ic_baseline_error_outline_24)
+                    .into(it)
+            }
+        }
+    }
+
     fun getGameShow(slug: String) {
         disposable = restForeground
             .getGameShow(slug)
@@ -148,7 +164,7 @@ class ScannerFragment : BaseFragment() {
 
     fun scanOut(id: String) {
         disposable = restForeground
-            .scanOut(id.toInt())
+            .scanOut(id)
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe({
@@ -166,18 +182,25 @@ class ScannerFragment : BaseFragment() {
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe({
-                if (idGames.equals("1") && it.stage1?.toInt()!! > 0){
+                Log.d(TAG, "checkScore: ${it.data?.nama}")
+                if (idGames.equals("1") && it.data?.stage1?.toInt() ?:0 > 0){
+                    showDialogFull()
+                    Log.d(TAG, "checkScore: 6")
+                } else if (idGames.equals("2") && it.data?.stage2?.toInt()?:0 > 0){
                     showDialog()
-                } else if (idGames.equals("2") && it.stage2?.toInt()!! > 0){
+                    Log.d(TAG, "checkScore: 5")
+                }else if (idGames.equals("3") && it.data?.stage3?.toInt()?:0 > 0){
                     showDialog()
-                }else if (idGames.equals("3") && it.stage3?.toInt()!! > 0){
+                    Log.d(TAG, "checkScore: 4")
+                }else if (idGames.equals("4") && it.data?.stage4?.toInt()?:0 > 0){
                     showDialog()
-                }else if (idGames.equals("4") && it.stage4?.toInt()!! > 0){
+                    Log.d(TAG, "checkScore: 3")
+                }else if (idGames.equals("5") && it.data?.stage5?.toInt()?:0 > 0){
                     showDialog()
-                }else if (idGames.equals("5") && it.stage5?.toInt()!! > 0){
+                    Log.d(TAG, "checkScore: 2")
+                }else if (idGames.equals("6") && it.data?.stage6?.toInt()?:0 > 0){
                     showDialog()
-                }else if (idGames.equals("6") && it.stage6?.toInt()!! > 0){
-                    showDialog()
+                    Log.d(TAG, "checkScore: 1")
                 }else {
                     val bundle = Bundle()
                     bundle.putString(DetailFragment.SLUG, slug)
@@ -188,8 +211,7 @@ class ScannerFragment : BaseFragment() {
                         .navigate(R.id.action_scannerFragment_to_detailFragment, bundle)
                 }
             }, {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "checkScore: $it")
+                Log.d(TAG, "checkScore: ${it.toString()}")
             })
     }
 

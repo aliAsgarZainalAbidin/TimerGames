@@ -75,13 +75,13 @@ interface ApiInterface {
 
     @PUT("finish/{id}")
     fun scanOut(
-        @Path("id") id: Int
-    ): Observable<PesertaFinish>
+        @Path("id") id: String
+    ): Observable<ModelWrapper<PesertaFinish>>
 
     @GET("finish/{id}")
     fun checkScore(
         @Path("id") id: String
-    ): Observable<PesertaFinish>
+    ): Observable<ModelWrapper<PesertaFinish>>
 
     @Multipart
     @POST("image/{id}")
