@@ -11,13 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.deval.event.BuildConfig
 import com.deval.event.BuildConfig.TAG
+import com.deval.event.Featured.GlideApp
 import com.deval.event.Models.Games
 import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
+import com.deval.event.Util.BaseFragment
 import com.deval.event.fragment.detail.more.MoreFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -26,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import java.util.*
 
 
-class DetailFragment : Fragment(), View.OnClickListener {
+class DetailFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         val ID = "ID"
@@ -92,14 +95,17 @@ class DetailFragment : Fragment(), View.OnClickListener {
             override fun onTick(millisUntilFinished: Long) {
                 timesleft = millisUntilFinished
                 tv_detail_time.setText("${millisUntilFinished / 1000}")
+                if (timesleft<=289000){
+                    this.onFinish()
+                }
                 Log.d(TAG, "onTick: $timesleft")
             }
 
             override fun onFinish() {
+                running = false;
+                showDialog()
                 timesleft = 300000
-                tv_detail_time.setText("300")
                 this.cancel()
-                Log.d(TAG, "onFinish: ")
             }
         }.start()
         mediaPlayer.start()
@@ -124,6 +130,29 @@ class DetailFragment : Fragment(), View.OnClickListener {
         }
     }
 
+
+    fun showDialog(){
+        dialogAnimation()
+        dialogAnimationImage?.visibility = View.GONE
+        dialogAnimationTitle?.text = "Times Up!"
+        dialogAnimationDesc?.text = ""
+        dialogAnimationProgress?.visibility = View.INVISIBLE
+        dialogAnimationImage?.visibility = View.VISIBLE
+        dialogAnimationImage?.let {
+            context?.let { it1 ->
+                GlideApp.with(it1)
+                    .load(R.drawable.ic_baseline_error_outline_24)
+                    .into(it)
+            }
+        }
+        dialogAnimationButon?.visibility = View.VISIBLE
+        dialogAnimationButon?.setOnClickListener {
+            btn_detail_lanjut?.performClick()
+            dialogAnimation?.dismiss()
+        }
+        mediaPlayer.release()
+    }
+
     private fun runTimer() {
 
         // Get the text view.
@@ -131,13 +160,20 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
         // Creates a new Handler
 //        val handler = Handler()
+//        handler.post(object : Runnable{
+//            override fun run() {
 //
-//        // Call the post() method,
-//        // passing in a new Runnable.
-//        // The post() method processes
-//        // code without a delay,
-//        // so the code in the Runnable
-//        // will run almost immediately.
+//                handler.postDelayed(this, 10)
+//            }
+//        })
+
+
+        // Call the post() method,
+        // passing in a new Runnable.
+        // The post() method processes
+        // code without a delay,
+        // so the code in the Runnable
+        // will run almost immediately.
 //        handler.post(object : Runnable {
 //            override fun run() {
 ////                val hours: Int = seconds / 3600
@@ -219,16 +255,17 @@ class DetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_detail_lanjut -> {
-                if (!running && seconds >= 0) {
+                if (!running && timesleft <= 300000) {
                     val bundle = Bundle()
                     bundle.putString(MoreFragment.SLUG, slug)
                     bundle.putString(MoreFragment.ID_NAMA, idNama)
                     bundle.putString(MoreFragment.TIME, tv_detail_time.text.toString())
+                    mediaPlayer.release()
 
                     (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                         .navigate(R.id.action_detailFragment_to_moreFragment, bundle)
                 } else {
-                    if (seconds == 0) {
+                    if (timesleft >= 300000) {
                         Toast.makeText(
                             requireContext(),
                             "Silahkan tekan tombol Start untuk memulai",
