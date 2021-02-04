@@ -6,7 +6,10 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.http.Field
 
 @Keep
-open class GlobalResult {
+open class GlobalResult (
     @field:SerializedName("data")
-    open var data : Peserta = Peserta()
-}
+    open var data : Peserta = Peserta(),
+
+    @field:SerializedName("msg")
+    open var msg : String? = ""
+)

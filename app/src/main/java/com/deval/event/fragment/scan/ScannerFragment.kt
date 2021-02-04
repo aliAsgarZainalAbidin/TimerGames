@@ -184,7 +184,7 @@ class ScannerFragment : BaseFragment() {
             .subscribe({
                 Log.d(TAG, "checkScore: ${it.data?.nama}")
                 if (idGames.equals("1") && it.data?.stage1?.toInt() ?:0 > 0){
-                    showDialogFull()
+                    showDialog()
                     Log.d(TAG, "checkScore: 6")
                 } else if (idGames.equals("2") && it.data?.stage2?.toInt()?:0 > 0){
                     showDialog()
@@ -199,7 +199,7 @@ class ScannerFragment : BaseFragment() {
                     showDialog()
                     Log.d(TAG, "checkScore: 2")
                 }else if (idGames.equals("6") && it.data?.stage6?.toInt()?:0 > 0){
-                    showDialog()
+                    showDialogFull()
                     Log.d(TAG, "checkScore: 1")
                 }else {
                     val bundle = Bundle()

@@ -26,11 +26,11 @@ interface ApiInterface {
 //            @Field("no_hp") no_hp: String?,
 //            @Field("jk") jk: String?
 //    ) : Response<GlobalResult>
-
-    @GET("api/ongkir/{id}")
-    fun ongkir(
-        @Path("id") idDesa: Int
-    ): Observable<GlobalResult>
+//
+//    @GET("api/ongkir/{id}")
+//    fun ongkir(
+//        @Path("id") idDesa: Int
+//    ): Observable<GlobalResult>
 
     //Kode diatas untuk contoh
     //Kode untuk aplikasi mulai dari sini
@@ -88,8 +88,7 @@ interface ApiInterface {
     fun postImage(
         @Path("id") id: Int,
         @Part img: MultipartBody.Part
-    ): Observable<PesertaFinish>
-
+    ): Observable<GlobalResult>
 
     @GET("position")
     fun getUnit(): Observable<ModelListWrapper<Unit>>

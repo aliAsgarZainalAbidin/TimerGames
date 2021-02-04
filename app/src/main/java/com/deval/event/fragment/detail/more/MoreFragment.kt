@@ -251,19 +251,21 @@ class MoreFragment : BaseFragment(), Injectable {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(TAG, "checkScore: ${it.data?.nama}")
-                if (it.data?.stage1?.toInt() ?: 0 > 0 && it.data?.stage2?.toInt() ?: 0 > 0
-                    && it.data?.stage3?.toInt() ?: 0 > 0 && it.data?.stage4?.toInt() ?: 0 > 0
-                    && it.data?.stage5?.toInt() ?: 0 > 0 && it.data?.stage6?.toInt() ?: 0 > 0
-                ) {
-                    showLoadingTotal(
-                        it.data?.stage1.toString(),
-                        it.data?.stage2.toString(),
-                        it.data?.stage3.toString(),
-                        it.data?.stage4.toString(),
-                        it.data?.stage5.toString(),
-                        it.data?.stage6.toString()
-                    )
-                }
+//                if (it.data?.stage1?.toInt() ?: 0 > 0 && it.data?.stage2?.toInt() ?: 0 > 0
+//                    && it.data?.stage3?.toInt() ?: 0 > 0 && it.data?.stage4?.toInt() ?: 0 > 0
+//                    && it.data?.stage5?.toInt() ?: 0 > 0 && it.data?.stage6?.toInt() ?: 0 > 0
+//                ) {
+//
+//                }
+
+                showLoadingTotal(
+                    it.data?.stage1.toString(),
+                    it.data?.stage2.toString(),
+                    it.data?.stage3.toString(),
+                    it.data?.stage4.toString(),
+                    it.data?.stage5.toString(),
+                    it.data?.stage6.toString()
+                )
                 dialogAnimationButon?.setOnClickListener {
                     dialogAnimation1?.dismiss()
                     val bundle = Bundle()
