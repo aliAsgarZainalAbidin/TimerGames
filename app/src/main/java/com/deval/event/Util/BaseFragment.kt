@@ -16,6 +16,7 @@ import com.deval.event.R
 open class BaseFragment : Fragment() {
 
     var dialogAnimation: Dialog? = null
+    var dialogAnimation1: Dialog? = null
     var dialogAnimationTitle : TextView? = null
     var dialogAnimationDesc : TextView? = null
     var dialogAnimationImage : ImageView? = null
@@ -50,5 +51,35 @@ open class BaseFragment : Fragment() {
         dialogAnimation?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialogAnimation?.show()
+    }
+
+    fun dialogAnimation1() {
+        activity ?.let { dialogAnimation1 =  Dialog(it, R.style.ThemeDialogCustom) }
+        dialogAnimation1?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogAnimation1?.setContentView(R.layout.fragment_success_dialog)
+        dialogAnimation1?.setCancelable(false)
+        dialogAnimation1?.setCanceledOnTouchOutside(false)
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialogAnimation1?.window?.attributes)
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.gravity = Gravity.CENTER
+
+        dialogAnimationTitle= dialogAnimation1?.findViewById(R.id.tv_dialog_title)
+        dialogAnimationDesc= dialogAnimation1?.findViewById(R.id.tv_dialog_msg)
+        dialogAnimationImage= dialogAnimation1?.findViewById(R.id.iv_dialog_msg)
+        dialogAnimationProgress = dialogAnimation1?.findViewById(R.id.animationView)
+        dialogAnimationButon = dialogAnimation1?.findViewById(R.id.btn_dialog)
+        val dialogAnimationClose = dialogAnimation1?.findViewById<ImageButton>(R.id.ib_dialog_close)
+
+        dialogAnimationButon?.visibility = View.VISIBLE
+        dialogAnimationClose?.setOnClickListener {
+            dialogAnimation1?.dismiss()
+        }
+
+        dialogAnimation1?.window?.attributes = lp
+        dialogAnimation1?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogAnimation1?.show()
     }
 }

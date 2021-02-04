@@ -52,6 +52,9 @@ open class PesertaFinish(
     @field:SerializedName("stage6")
     open var stage6: String? = "",
 
+    @field:SerializedName("total")
+    open var total: String? = "",
+
     @field:SerializedName("time6")
     open var time6: String? = ""
 

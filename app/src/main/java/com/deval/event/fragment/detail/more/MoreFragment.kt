@@ -26,12 +26,14 @@ import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.Util.BaseFragment
 import com.deval.event.di.Injectable
+import com.deval.event.fragment.detail.DetailFragment
 import com.deval.event.fragment.scan.ScannerFragment
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.resolution
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.Schedulers.io
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_more.*
 import kotlinx.coroutines.Dispatchers
@@ -136,10 +138,19 @@ class MoreFragment : BaseFragment(), Injectable {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         dialogAnimation?.dismiss()
-                        val bundle = Bundle()
-                        bundle.putString(ScannerFragment.TYPE, ScannerFragment.TYPE_OUT)
-                        (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
-                            .navigate(R.id.action_moreFragment_to_scannerFragment, bundle)
+                        if (id.equals("6")){
+                            checkScore(idNama)
+                        } else {
+                            val bundle = Bundle()
+                            bundle.putString(ScannerFragment.TYPE, ScannerFragment.TYPE_OUT)
+                            (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                                .navigate(R.id.action_moreFragment_to_scannerFragment, bundle)
+                        }
+
+//                        val bundle = Bundle()
+//                        bundle.putString(ScannerFragment.TYPE, ScannerFragment.TYPE_OUT)
+//                        (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+//                            .navigate(R.id.action_moreFragment_to_scannerFragment, bundle)
                         //                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                     }, {
                         //                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
@@ -149,7 +160,7 @@ class MoreFragment : BaseFragment(), Injectable {
         }
     }
 
-    fun test(){
+    fun test() {
         var exportRealmFile: File? = null
         try {
             // get or create an "export.realm" file
@@ -231,6 +242,58 @@ class MoreFragment : BaseFragment(), Injectable {
 //                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(BuildConfig.TAG, "getGameShow: ${it.message}")
             })
+    }
+
+    fun checkScore(id: String) {
+        disposable = restForeground
+            .checkScore(id)
+            .subscribeOn(io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "checkScore: ${it.data?.nama}")
+                if (it.data?.stage1?.toInt() ?: 0 > 0 && it.data?.stage2?.toInt() ?: 0 > 0
+                    && it.data?.stage3?.toInt() ?: 0 > 0 && it.data?.stage4?.toInt() ?: 0 > 0
+                    && it.data?.stage5?.toInt() ?: 0 > 0 && it.data?.stage6?.toInt() ?: 0 > 0
+                ) {
+                    showLoadingTotal(
+                        it.data?.stage1.toString(),
+                        it.data?.stage2.toString(),
+                        it.data?.stage3.toString(),
+                        it.data?.stage4.toString(),
+                        it.data?.stage5.toString(),
+                        it.data?.stage6.toString()
+                    )
+                }
+                dialogAnimationButon?.setOnClickListener {
+                    dialogAnimation1?.dismiss()
+                    val bundle = Bundle()
+                    bundle.putString(ScannerFragment.TYPE, ScannerFragment.TYPE_OUT)
+                    (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
+                        .navigate(R.id.action_moreFragment_to_scannerFragment, bundle)
+                }
+            }, {
+                Log.d(TAG, "checkScore: ${it.toString()}")
+            })
+    }
+
+    fun showLoadingTotal(
+        game1: String,
+        game2: String,
+        game3: String,
+        game4: String,
+        game5: String,
+        game6: String
+    ) {
+        dialogAnimation1()
+        dialogAnimationImage?.visibility = View.GONE
+        dialogAnimationProgress?.visibility = View.GONE
+        dialogAnimationTitle?.text = "Total Score"
+        dialogAnimationDesc?.text = "Game 1 : $game1 \n" +
+                "Game 2 : $game2 \n" +
+                "Game 3 : $game3 \n" +
+                "Game 4 : $game4 \n" +
+                "Game 5 : $game5 \n" +
+                "Game 6 : $game6 "
     }
 
     fun getGameShow(slug: String) {
