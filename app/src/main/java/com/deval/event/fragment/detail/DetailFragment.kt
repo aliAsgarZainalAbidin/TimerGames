@@ -104,6 +104,7 @@ class DetailFragment : BaseFragment(), View.OnClickListener {
             override fun onFinish() {
                 running = false;
                 showDialog()
+                tv_detail_time.setText("0")
                 timesleft = 300000
                 this.cancel()
             }
@@ -225,6 +226,7 @@ class DetailFragment : BaseFragment(), View.OnClickListener {
             R.id.btn_detail_start -> {
                 running = true
                 if (timesleft >= 300000) {
+//                    timeStart(300000)
                     timeStart(300000)
                 } else {
                     timeStart(timesleft)
