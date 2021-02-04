@@ -24,9 +24,11 @@ import com.deval.event.BuildConfig.TAG
 import com.deval.event.Featured.GlideApp
 import com.deval.event.Models.Games
 import com.deval.event.Models.Peserta
+import com.deval.event.Models.PesertaFinish
 import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.Util.BaseFragment
+import com.deval.event.di.Injectable
 import com.deval.event.fragment.detail.DetailFragment
 import com.deval.event.fragment.scan.ScannerFragment
 import id.zelory.compressor.Compressor
@@ -34,6 +36,7 @@ import id.zelory.compressor.constraint.resolution
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_more.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,10 +49,11 @@ import java.io.IOException
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.HashMap
 
 
-class MoreFragment : BaseFragment() {
+class MoreFragment : BaseFragment(), Injectable {
 
     companion object {
         val NAMA = "NAMA"
@@ -62,10 +66,14 @@ class MoreFragment : BaseFragment() {
         val BG = "BG"
     }
 
+    @Inject
+    lateinit var realm: Realm
+
     var currentPhotoPath: String = ""
+
     private val restForeground by lazy { ApiFactory.create(false) }
     private var disposable: Disposable? = null
-    private lateinit var nama: String
+    private var nama: String? = null
     private lateinit var id: String
     private lateinit var idNama: String
     private lateinit var time: String
@@ -150,6 +158,39 @@ class MoreFragment : BaseFragment() {
     fun uploadScore() {
         val t = HashMap<String, Int>()
         t["stage$id"] = et_more_score.text.toString().toInt()
+        t["time$id"] = et_more_waktu.text.toString().toInt()
+
+        var pesertaFinish = PesertaFinish()
+        pesertaFinish.nama = nama
+        when (id.toInt()) {
+            1 -> {
+                pesertaFinish.time1 = time
+            }
+
+            2 -> {
+                pesertaFinish.time2 = time
+            }
+
+            3 -> {
+                pesertaFinish.time3 = time
+            }
+
+            4 -> {
+                pesertaFinish.time4 = time
+            }
+
+            5 -> {
+                pesertaFinish.time5 = time
+            }
+
+            6 -> {
+                pesertaFinish.time6 = time
+            }
+        }
+
+        realm.executeTransaction {
+            it.insertOrUpdate(pesertaFinish)
+        }
 
         Log.d(TAG, "uploadScore: ID_NAMA $idNama => $t")
 
@@ -202,6 +243,7 @@ class MoreFragment : BaseFragment() {
     fun onSuccessQR(data: Peserta) {
         data.let {
             et_more_nama.setText(it.nama)
+            nama = it.nama
             et_more_waktu.setText(time)
         }
     }

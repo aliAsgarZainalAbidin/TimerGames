@@ -95,7 +95,7 @@ class DetailFragment : BaseFragment(), View.OnClickListener {
             override fun onTick(millisUntilFinished: Long) {
                 timesleft = millisUntilFinished
                 tv_detail_time.setText("${millisUntilFinished / 1000}")
-                if (timesleft<=289000){
+                if (timesleft<=0){
                     this.onFinish()
                 }
                 Log.d(TAG, "onTick: $timesleft")

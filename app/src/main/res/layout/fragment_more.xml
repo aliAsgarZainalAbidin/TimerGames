@@ -100,7 +100,7 @@
                         style="@style/TextInputEditText.Custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Waktu"
+                        android:hint="Sisa Waktu / Detik"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/etl_more_nama">

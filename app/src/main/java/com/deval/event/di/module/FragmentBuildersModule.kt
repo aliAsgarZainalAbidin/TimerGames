@@ -1,5 +1,6 @@
 package com.deval.event.di.module
 
+import com.deval.event.fragment.detail.more.MoreFragment
 import com.deval.event.fragment.home.HomeFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -16,5 +17,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun bindFragHome() : HomeFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindFragMore() : MoreFragment
 
 }
