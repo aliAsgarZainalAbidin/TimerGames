@@ -151,7 +151,7 @@ class ScannerFragment : BaseFragment() {
             .subscribe({
                 it.data?.let { data -> onSuccessGame(data) }
             }, {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(BuildConfig.TAG, "getGameShow: $it")
             })
     }
@@ -171,7 +171,7 @@ class ScannerFragment : BaseFragment() {
                 (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_container)
                     .navigate(R.id.action_scannerFragment_to_homeFragment)
             }, {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "scanOut: $it")
             })
     }
@@ -225,7 +225,7 @@ class ScannerFragment : BaseFragment() {
                 codeScanner.releaseResources()
                 it.data?.let { data -> onSuccessQR(data, id) }
             }, {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "getQRCode: $it")
             })
     }

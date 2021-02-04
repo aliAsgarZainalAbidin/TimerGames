@@ -1,10 +1,8 @@
 package com.deval.event.fragment.detail.more
 
-import android.R.attr
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
-import android.icu.text.IDNA
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -16,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.deval.event.BuildConfig
@@ -29,7 +26,6 @@ import com.deval.event.R
 import com.deval.event.Retrofit.ApiFactory
 import com.deval.event.Util.BaseFragment
 import com.deval.event.di.Injectable
-import com.deval.event.fragment.detail.DetailFragment
 import com.deval.event.fragment.scan.ScannerFragment
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.resolution
@@ -43,10 +39,8 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import org.jetbrains.anko.startActivityForResult
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -155,10 +149,42 @@ class MoreFragment : BaseFragment(), Injectable {
         }
     }
 
+    fun test(){
+        var exportRealmFile: File? = null
+        try {
+            // get or create an "export.realm" file
+            exportRealmFile = File(activity?.externalCacheDir, "export.realm")
+
+            // if "export.realm" already exists, delete
+            exportRealmFile.delete()
+
+            // copy current realm to "export.realm"
+            realm.writeCopyTo(exportRealmFile)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        realm.close()
+    }
+
     fun uploadScore() {
         val t = HashMap<String, Int>()
         t["stage$id"] = et_more_score.text.toString().toInt()
         t["time$id"] = et_more_waktu.text.toString().toInt()
+
+        var exportRealmFile: File? = null
+        try {
+            // get or create an "export.realm" file
+            exportRealmFile = File(activity?.externalCacheDir, "export.realm")
+
+            // if "export.realm" already exists, delete
+            exportRealmFile.delete()
+
+            // copy current realm to "export.realm"
+            realm.writeCopyTo(exportRealmFile)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
 
         var pesertaFinish = PesertaFinish()
         pesertaFinish.nama = nama
